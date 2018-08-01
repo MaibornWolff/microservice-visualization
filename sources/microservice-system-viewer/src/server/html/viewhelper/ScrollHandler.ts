@@ -16,13 +16,13 @@ export class ScrollHandler {
   }
 
   moveViewPort() {
-    let edgeElement = this.event.srcElement.parentElement
+    let edgeElement = (this.event.target as HTMLElement).parentElement
     let dAttr = edgeElement.querySelector('path').getAttribute('d')
     let coords = this.parseCommands(dAttr)
 
     let viewPortRelative = edgeElement.getBoundingClientRect()
 
-    if (this.event.srcElement.tagName === 'ellipse') {
+    if ((this.event.target as HTMLElement).tagName === 'ellipse') {
       this.scroll2target(coords, viewPortRelative)
     } else {
       this.scroll2origin(coords, viewPortRelative)
