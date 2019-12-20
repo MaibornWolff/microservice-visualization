@@ -15,17 +15,10 @@ TADIS consists of two microservices: an analyzer backend and a UI frontend (see 
 
 ![target architecture](docs/target-architecture.png "target architecture")
 
-## Repository structure
+## Requirements
 
-The repository is organized as a mono-repo with Yarn and Lerna. Each directory in [sources](sources/) is a Yarn workspace.
-
-## Setup
-
-1. You need a global installation of the following:
-  - [Node.js v10](https://nodejs.org),
-  - [Yarn](https://yarnpkg.com),
-  - [Lerna](https://github.com/lerna/lerna),
-2. Bootstrap the node package structure with `yarn install`.
+- [Node.js v10](https://nodejs.org)
+- [Yarn](https://yarnpkg.com)
 
 ## License
 

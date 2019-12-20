@@ -30,11 +30,16 @@ export class CustomCollectorService {
   ) { }
 
   public async getAllMicroservices(): Promise<MicroService[]> {
-    const system = await this.microservicesCreator.transform(new System(''))
+    // const system = await this.microservicesCreator.transform(new System(''))
+    const system = await this.getAllMicroservicesFromSourceFolder()
     return system.getMicroServices()
   }
 
   public async getSystem(): Promise<System> {
+    return this.getSystemFromSourceCodeOnly()
+  }
+
+  private async getSystemFromKubernetesRabbitMqSourceCode(): Promise<System> {
     let system = new System('')
 
     system = await this.microservicesCreator.transform(system)
@@ -43,6 +48,40 @@ export class CustomCollectorService {
 
     system = await this.rabbitMqBindingsAnalyzer.transform(system)
     system = await this.exchangesFromEnvPayloadCreator.transform(system)
+    system = await this.outgoingExchangesCreator.transform(system)
+
+    system = await this.feignClientAnnotationAnalyzer.transform(system)
+
+    const elementMappings: ElementMapping[] = [
+      {
+        elementToDeriveNodeFrom: 'sendToExchange',
+        nodeTypeToCreate: 'MessageExchange',
+        nodeTypeDirection: 'target',
+        edgeType: 'AsyncEventFlow'
+      },
+      {
+        elementToDeriveNodeFrom: 'receiveFromExchange',
+        nodeTypeToCreate: 'MessageExchange',
+        nodeTypeDirection: 'source',
+        edgeType: 'AsyncEventFlow'
+      }
+    ]
+    system = await this.javaAnnotationAnalyzer.transform(system, 'EventProcessor', elementMappings)
+    system = await this.sourceLocationDecorator.transform(system)
+
+    system = await this.nodeFilter.transform(system)
+    system = await this.microserviceWithOutgoingExchangeMerger.transform(system)
+
+    system = await this.subSystemTransformer.transform(system, SubSystemFromPayloadTransformer.getSubSystemNameFromCabinetLabel)
+
+    return system
+  }
+
+  private async getSystemFromSourceCodeOnly(): Promise<System> {
+    let system = new System('')
+
+    system = await this.getAllMicroservicesFromSourceFolder()
+
     system = await this.outgoingExchangesCreator.transform(system)
 
     system = await this.feignClientAnnotationAnalyzer.transform(system)
