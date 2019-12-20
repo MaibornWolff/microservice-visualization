@@ -1,8 +1,0 @@
-{
-  "extends": "tslint-config-standard",
-  "rules": {
-    "quotemark": [true, "single", "jsx-double"],
-    "space-before-function-paren": [true, "never"],
-    "prefer-const": true
-  }
-}
