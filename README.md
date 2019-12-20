@@ -10,10 +10,19 @@ This repository contains software for analyzing and visualizing the topology of 
 TADIS consists of two microservices: an analyzer backend and a UI frontend (see the architecture picture below).
 
 * [tadis-analyzer](sources/tadis-analyzer) collects information about a system from different sources by executing a number of transformers. The result is provided as a system model in JSON. The analyzer is a microservice and also a NPM package. The microservice can be started directly, while the NPM package can be used in custom analyzers.
-* [tadis-analyzer-custom-example](sources/tadis-analyzer-custom-example) is an example custom-analyzer microservice that imports the tadis-analyzer as a NPM package. It implements a custom collector which uses only certain transformers.
 * [tadis-ui](sources/tadis-ui) is based on webpack, D3, and graphviz. It visualizes systems provided by the tadis-analyzer endpoint `/collect/system`. The UI is specific to certain visualizations in microservice systems.
 
 ![target architecture](docs/target-architecture.png "target architecture")
+
+## Getting Started Example
+
+An example of a customized analyzer is provided in [customized-analyzer-example](sources/customized-analyzer-example).
+
+- The customized analyzer is implemented by a NPM package that depends on the tadis-analyzer NPM package.
+- It implements a custom collector which uses certain transformers for source code analysis.
+- It contains source code of a dummy system for analysis.
+
+Please follow the instructions [provided here](sources/customized-analyzer-example/README.md) to setup the example.
 
 ## Requirements
 
