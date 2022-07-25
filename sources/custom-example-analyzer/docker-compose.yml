@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  tadis-ui:
+    build: ../tadis-ui
+    ports:
+      - "${VISUALIZER_PORT}:${VISUALIZER_PORT}"
+    environment:
+      PORT: "${VISUALIZER_PORT}"
+      CACHE_TTL_SECONDS: 10
+      SYSTEM_PROVIDER_URL: "${SYSTEM_PROVIDER_URL}"
+
+  custom-analyzer:
+    build: .
+    ports:
+      - "${ANALYZER_PORT}:${ANALYZER_PORT}"
+    environment:
+      PORT: "${ANALYZER_PORT}"
+      SOURCE_FOLDER: "${SOURCE_FOLDER}"
+      GIT_BASE_URLS: "${GIT_BASE_URLS}"
+    volumes:
+      - ./dummy-system-source:/app/dummy-system-source
