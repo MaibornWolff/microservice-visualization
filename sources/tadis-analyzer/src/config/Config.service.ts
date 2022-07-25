@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-
 import * as dotenv from 'dotenv'
 import * as Joi from 'joi'
 import { Logger } from '@nestjs/common'
@@ -25,8 +23,13 @@ export class ConfigService {
   get(key: string): string {
     const value = this.envConfig[key]
     if (value && typeof value === 'string') {
-      if (value.startsWith('\'') && value.endsWith('\'') || value.startsWith('"') && value.endsWith('"')) {
-        this.logger.warn('env variable ' + key + ' is surrounded by quotes: ' + value)
+      if (
+        (value.startsWith("'") && value.endsWith("'")) ||
+        (value.startsWith('"') && value.endsWith('"'))
+      ) {
+        this.logger.warn(
+          'env variable ' + key + ' is surrounded by quotes: ' + value
+        )
       }
     }
     if (!value) {
@@ -65,7 +68,7 @@ export class ConfigService {
 
   private stringToStringList(input: string): string[] {
     if (input && input.length > 0) {
-      return input.split(',').map(item => item.trim())
+      return input.split(',').map((item) => item.trim())
     }
     return []
   }

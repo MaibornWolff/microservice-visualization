@@ -9,7 +9,7 @@ import { RabbitMqManagementApiService } from '../api/api.service'
 import testQueues from './testdata/api/queues.json'
 import testBindings from './testdata/api/bindings.json'
 import { verifyEachContentHasTransformer } from '../../../test/verifiers'
-import { HttpModule } from '@nestjs/common'
+import { HttpModule } from '@nestjs/axios'
 
 describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
   let app: TestingModule

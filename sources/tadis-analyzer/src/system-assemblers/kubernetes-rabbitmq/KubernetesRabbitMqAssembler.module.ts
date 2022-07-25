@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../config/Config.module'
+import { ConfigModule, ConfigService } from '../../config/Config.module'
 import { KubernetesModule } from '../../system-element-extractors/kubernetes/Kubernetes.module'
 import { RabbitMqModule } from '../../system-element-extractors/rabbitmq/RabbitMq.module'
 import { SystemAssemblerController } from '../controllers/SystemAssembler.controller'
@@ -8,7 +8,7 @@ import { KubernetesRabbitMqAssembler } from './KubernetesRabbitMqAssembler.servi
 import { GitModule } from '../../git/Git.module'
 import { SystemAssembler } from '../controllers/SystemAssembler.service'
 import { SpringBootModule } from '../../system-element-extractors/spring-boot/SpringBoot.module'
-import {PostProcessorsModule} from '../../post-processors/PostProcessors.module';
+import { PostProcessorsModule } from '../../post-processors/PostProcessors.module'
 
 @Module({
   imports: [
@@ -25,9 +25,10 @@ import {PostProcessorsModule} from '../../post-processors/PostProcessors.module'
     {
       provide: SystemAssembler,
       useClass: KubernetesRabbitMqAssembler
-    }
+    },
+    ConfigService
   ],
-  exports: [KubernetesRabbitMqAssembler]
+  exports: [KubernetesRabbitMqAssembler, ConfigService]
 })
 class KubernetesRabbitMqAssemblerModule {}
 
