@@ -1,7 +1,6 @@
 # Microservice Visualization
 
 ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
-[![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)
 
 This repository contains tools for analyzing and visualizing the topology of microservice systems.
 
@@ -29,7 +28,6 @@ Please follow the instructions [provided here](sources/custom-example-analyzer/R
 ## Requirements
 
 - [Node.js](https://nodejs.org)
-- [Yarn](https://yarnpkg.com)
 
 ## License
 
