@@ -1,6 +1,6 @@
 {
   "name": "tadis-ui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "src/viewer.ts",
   "scripts": {
@@ -11,8 +11,7 @@
     "test": "mocha -r ts-node/register -r tsconfig-paths/register test/**/*.ts",
     "docker-build": "node docker-build.js",
     "docker-run": "node docker-run.js",
-    "docker-publish": "node docker-publish.js",
-    "cloud-publish": "now"
+    "docker-publish": "node docker-publish.js"
   },
   "author": "Andreas Blunk, MaibornWolff GmbH",
   "license": "Apache-2.0",
