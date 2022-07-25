@@ -1,6 +1,6 @@
 {
   "name": "tadis-analyzer",
-  "version": "2.0.0",
+  "version": "2.0.0-rc.1",
   "description": "generic analyzer tool for architecture discovery",
   "main": "build/src/lib.js",
   "types": "build/src/lib.d.ts",
@@ -28,8 +28,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker-build": "node docker-build.js",
     "docker-run": "node docker-run.js",
-    "docker-publish": "node docker-publish.js",
-    "publish": "tsc && npm publish"
+    "docker-publish": "node docker-publish.js"
   },
   "dependencies": {
     "@kubernetes/client-node": "^0.17.0",
