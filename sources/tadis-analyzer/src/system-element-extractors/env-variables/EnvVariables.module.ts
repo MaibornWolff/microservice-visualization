@@ -11,4 +11,4 @@ import { ExchangesFromEnvPayloadCreator } from './ExchangesFromEnvPayloadCreator
 })
 class EnvVariablesModule {}
 
-export { ExchangesFromEnvPayloadCreator }
+export { EnvVariablesModule, ExchangesFromEnvPayloadCreator }
