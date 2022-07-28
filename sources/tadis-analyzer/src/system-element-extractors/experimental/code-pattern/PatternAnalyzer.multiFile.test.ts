@@ -5,7 +5,7 @@ import { verifyEachContentHasTransformer } from '../../../test/verifiers'
 import { PatternAnalyzer } from './PatternAnalyzer'
 import { SystemPattern, NodePattern, SearchTextLocation } from './model'
 
-describe('PatternAnalyzer.interFileId', () => {
+describe('PatternAnalyzer.multiFile', () => {
     const sourceFolder = __dirname + '/testdata/multi-file-analysis-project'
 
     beforeEach(() => {

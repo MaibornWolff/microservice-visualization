@@ -5,7 +5,7 @@ import { verifyEachContentHasTransformer } from '../../../test/verifiers'
 import { PatternAnalyzer } from './PatternAnalyzer'
 import { SystemPattern, NodePattern, SearchTextLocation } from './model'
 
-describe('PatternAnalyzer.intraFileId', () => {
+describe('PatternAnalyzer.singeFile', () => {
     const sourceFolder = __dirname + '/testdata/single-file-analysis-project'
 
     beforeEach(() => {
@@ -18,13 +18,14 @@ describe('PatternAnalyzer.intraFileId', () => {
     function javaSourceFilePattern(): NodePattern {
         return {
             searchTextLocation: SearchTextLocation.FILE_PATH,
+            preConditionRegExp: 'java',
             regExp: '$sourceRoot/([^/]+)/source.java',
             capturingGroupIndexForName: 1,
             nodeType: 'MicroService'
         }
     }
 
-    it('creates a service from a file path', async () => {
+    it('creates a service from a file path considering the precondition regexp', async () => {
         const inputSystem = new System('test')
 
         const systemPattern: SystemPattern = {
@@ -36,6 +37,28 @@ describe('PatternAnalyzer.intraFileId', () => {
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
         expect(outputSystem.findMicroService('service1')).toBeDefined()
+    })
+
+    it('ignores source files that dont match the precondition regexp', async () => {
+        const inputSystem = new System('test')
+
+        const systemPattern: SystemPattern = {
+            nodePatterns: [
+                {
+                    searchTextLocation: SearchTextLocation.FILE_PATH,
+                    preConditionRegExp: 'kafka',
+                    regExp: '$sourceRoot/([^/]+)/source.java',
+                    capturingGroupIndexForName: 1,
+                    nodeType: 'MicroService'
+                }
+            ],
+            edgePatterns: []
+        }
+
+        const analyzer = new PatternAnalyzer(sourceFolder)
+        const outputSystem = await analyzer.transform(inputSystem, systemPattern)
+
+        expect(outputSystem.nodes).toHaveLength(0)
     })
 
     it('creates an async info flow for multiple annotations in the same file', async () => {

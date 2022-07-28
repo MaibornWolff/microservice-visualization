@@ -283,7 +283,14 @@ function resolveName(
 
     const contents = getContentsToResolveNameFrom(nameResolution, filePath, allFiles, searchTextLocationMemory)
     for (const content of contents) {
-        const resolvedNames = matchNodeByRegExp(regExp, content.read(), 1, nameResolution.variableForName, foundNames)
+        const resolvedNames = matchNodeByRegExp(
+            nameResolution.preConditionRegExp,
+            regExp,
+            content.read(),
+            1,
+            nameResolution.variableForName,
+            foundNames
+        )
         if (resolvedNames.length > 0) {
             const resolvedName = resolvedNames[0]
             searchTextLocationMemory.set(nameResolution.searchTextVariable, content.filePath())
@@ -401,6 +408,7 @@ function matchNode(pattern: NodePattern, filePath: string, nameMemory: NameMemor
 function matchNodeByPattern(pattern: NodePattern, searchText: string, nameMemory: NameMemory): MatchedNode[] {
     const variableForName = getVariableForName(pattern.variableForName)
     return matchNodeByRegExp(
+        pattern.preConditionRegExp,
         pattern.regExp,
         searchText,
         pattern.capturingGroupIndexForName,
@@ -410,12 +418,26 @@ function matchNodeByPattern(pattern: NodePattern, searchText: string, nameMemory
 }
 
 function matchNodeByRegExp(
+    preConditionRegExpString: string | undefined,
     regExpString: string,
     searchText: string,
     capturingGroupIndexForName: number,
     variableForName: string,
     inheritedNameMemory: NameMemory
 ): MatchedNode[] {
+    if (preConditionRegExpString) {
+        const preConditionRegExpWithReplacedVariables = replaceNameVariables(
+            preConditionRegExpString,
+            inheritedNameMemory
+        )
+        const preConditionRegExp = new RegExp(preConditionRegExpWithReplacedVariables, 'g')
+
+        console.log(JSON.stringify(searchText.match(preConditionRegExp), null, 2))
+        if (searchText.match(preConditionRegExp) == null) {
+            return []
+        }
+    }
+
     const regExpWithReplacedVariables = replaceNameVariables(regExpString, inheritedNameMemory)
     const regExp = new RegExp(regExpWithReplacedVariables, 'g')
 
