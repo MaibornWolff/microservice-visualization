@@ -22,5 +22,7 @@ objects:
                   memory: ${MEMORY_REQUESTS}
               env:
                 # Kafka Topics
-                - name: SOME_KAFKA_TOPIC
-                  value: actual_topic_name
+                - name: FIRST_KAFKA_TOPIC
+                  value: actual_topic_1
+                - name: SECOND_KAFKA_TOPIC
+                  value: actual_topic_2
