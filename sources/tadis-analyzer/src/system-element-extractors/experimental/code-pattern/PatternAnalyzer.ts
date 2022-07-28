@@ -432,7 +432,6 @@ function matchNodeByRegExp(
         )
         const preConditionRegExp = new RegExp(preConditionRegExpWithReplacedVariables, 'g')
 
-        console.log(JSON.stringify(searchText.match(preConditionRegExp), null, 2))
         if (searchText.match(preConditionRegExp) == null) {
             return []
         }
