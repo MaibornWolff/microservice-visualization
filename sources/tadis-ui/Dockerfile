@@ -28,5 +28,6 @@ COPY --from=build /viewer/src/html /viewer/src/html/
 WORKDIR /viewer
 RUN npm install --production
 
+USER node
 EXPOSE 8080
 CMD [ "npm", "run", "start:prod" ]
