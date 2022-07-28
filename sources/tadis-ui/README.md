@@ -20,8 +20,12 @@ It shows the focussing on single nodes by displaying theirs neighours only. And 
 
 If you just want to try the viewer and play with it, do the following:
 
-- `yarn start` builds the bundle that is used in [index.html](./src/html/index.html) and runs a web server that provides the index.html and some more endpoints
+- `npm run start` builds the bundle that is used in [index.html](./src/html/index.html) and runs a web server that provides the index.html and some more endpoints
 - access the [local example system](./src/exampleSystems/simpleSystem.ts): `http://localhost:8080/tadis/html/?demo=1`
+
+### Docker Image
+
+A Docker image for tadis-ui is also available via Docker Hub: https://hub.docker.com/r/andreasblunkmw/tadis-ui
 
 ### Configuration
 
@@ -46,10 +50,10 @@ Further configuration:
 ### Running the HTTP server
 
 - local execution:
-  - `yarn start`
+  - `npm run start`
 - execution via docker container:
-  - `yarn docker-build`
-  - `yarn docker-run`
+  - `npm run docker-build`
+  - `npm run docker-run`
     (expects `.env` file with environment variables in current directory)
 
 ### Accessing output

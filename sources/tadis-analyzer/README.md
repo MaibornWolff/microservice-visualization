@@ -19,10 +19,10 @@ Environment Variables:
 
 ## Usage
 
-* install: `yarn install`
-* run: `yarn start`
-* build Docker image: `yarn docker-build`
-* run Docker image: `yarn docker-run`
+* install: `npm install`
+* run: `npm run start`
+* build Docker image: `npm run docker-build`
+* run Docker image: `npm run docker-run`
 
 ## Getting Started
 
