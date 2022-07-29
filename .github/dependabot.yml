@@ -5,13 +5,13 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-      directory: "/sources/tadis-ui"
-      schedule:
-        interval: "weekly"
+    directory: "/sources/tadis-ui"
+    schedule:
+      interval: "weekly"
   - package-ecosystem: "npm"
-      directory: "/sources/custom-example-analyzer"
-      schedule:
-        interval: "weekly"
+    directory: "/sources/custom-example-analyzer"
+    schedule:
+      interval: "weekly"
   - package-ecosystem: "docker"
     directory: "/sources/tadis-ui"
     schedule:
