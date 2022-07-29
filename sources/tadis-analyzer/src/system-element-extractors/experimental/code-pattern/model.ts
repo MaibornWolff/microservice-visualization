@@ -17,6 +17,10 @@ export type NodePattern = NamePattern & {
      */
     name?: string
     /**
+     * a description of this pattern
+     */
+    description?: string
+    /**
      * the class name of the node to create. this class must exist in model/ms.ts
      * @see ../model/ms.ts
      */
@@ -53,6 +57,7 @@ export type NamePattern = {
     /**
      * the index of the capturing group to derive the name from.
      */
+    // TODO: use capture group syntax instead?: (?<groupName>...)
     capturingGroupIndexForName: number
     /**
      * name of a variable which can be used in regular expressions of upcoming name resolutions in order
@@ -70,6 +75,7 @@ export type NamePattern = {
      *  - $name can be used to refer to the node name discovered before
      *  - additional variables are available for names matched in regular expressions before
      */
+    // TODO: allow multipe patterns here. when the first pattern cannot resolve the name, the next one is tried and so on
     nameResolutionPattern?: NamePattern
 }
 
@@ -111,4 +117,8 @@ export type EdgePattern = {
      * the name is used in logs and in system model metadata.
      */
     name?: string
+    /**
+     * a description of this pattern
+     */
+    description?: string
 }
