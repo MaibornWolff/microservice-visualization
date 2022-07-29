@@ -25,7 +25,7 @@
     "node-cache": "^5.1.2",
     "path": "^0.12.7",
     "random-word": "^2.0.0",
-    "viz.js": "1.8.2"
+    "viz.js": "2.1.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",
