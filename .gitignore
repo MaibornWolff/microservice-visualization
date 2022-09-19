@@ -11,4 +11,5 @@ dist
 build
 *error.log
 *debug.log
+*.iml
 .idea

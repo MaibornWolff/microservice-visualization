@@ -14,8 +14,6 @@ import { Node } from './domain/model'
 dotenv.config()
 envYaml.config()
 
-const views: any = process.env.views ? JSON.parse(process.env.views) : {}
-
 const app = express()
 
 const htmlDir = path.join(process.cwd(), 'src', 'html')
