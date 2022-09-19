@@ -1,4 +1,4 @@
-import { describe, it, test } from 'mocha'
+import { describe, test } from 'mocha'
 import { expect } from 'chai'
 import { Node } from '~/domain/model'
 import { GraphService } from '~/domain/service'

@@ -1,6 +1,4 @@
-import * as _ from 'lodash'
 import { Node } from './model'
-import { GraphService } from './service'
 
 /**
  * removes all 2nd level edges

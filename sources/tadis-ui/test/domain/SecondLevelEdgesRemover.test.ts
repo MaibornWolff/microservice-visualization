@@ -1,4 +1,4 @@
-import { describe, it, test } from 'mocha'
+import { describe, test } from 'mocha'
 import { expect } from 'chai'
 import { Node } from '~/domain/model'
 import { SecondLevelEdgesRemover } from '~/domain/SecondLevelEdgesRemover'
@@ -6,7 +6,7 @@ import { SecondLevelEdgesRemover } from '~/domain/SecondLevelEdgesRemover'
 describe('SecondLevelEdgesRemover', function() {
 
   test('second level edges are removed', () => {
-    let inputGraph: Node = Node.ofRawNode({
+    const inputGraph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
         {
@@ -31,7 +31,7 @@ describe('SecondLevelEdgesRemover', function() {
       ]
     })
 
-    let expectedGraph: Node = Node.ofRawNode({
+    const expectedGraph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
         {

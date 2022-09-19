@@ -2,6 +2,7 @@ import * as express from 'express'
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as envYaml from './envYamlString'
+/* eslint-disable @typescript-eslint/no-var-requires */
 const vizJs = require('viz.js')
 
 import { appBaseUrl } from './appBaseUrl'
@@ -56,7 +57,7 @@ function addRestHandlers(app: express.Express) {
   app.get(`${appBaseUrl}/svg`, (req, res) => {
     systemProvider.getSystem(req.query).then(system => {
       if (system) {
-        let options: ConverterOptions = {
+        const options: ConverterOptions = {
           urlExtractor: (node: Node) => node.getProp('url', null),
           showDebug: req.query.debug ? true : false
         }
@@ -68,6 +69,7 @@ function addRestHandlers(app: express.Express) {
       }
     })
       .catch(error => {
+        console.log(error)
         res.status(500).send('an error occured: ' + error)
       })
   })
@@ -75,7 +77,7 @@ function addRestHandlers(app: express.Express) {
   app.get(`${appBaseUrl}/dot`, (req, res) => {
     systemProvider.getSystem(req.query).then(system => {
       if (system) {
-        let options: ConverterOptions = {
+        const options: ConverterOptions = {
           urlExtractor: (node: Node) => node.getProp('url', null),
           showDebug: req.query.debug ? true : false
         }

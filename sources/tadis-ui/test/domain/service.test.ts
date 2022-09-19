@@ -1,4 +1,4 @@
-import { describe, it, test } from 'mocha'
+import { describe, test } from 'mocha'
 import { expect } from 'chai'
 import { Node } from '../../src/domain/model'
 import { GraphService } from '../../src/domain/service'
@@ -6,7 +6,7 @@ import { GraphService } from '../../src/domain/service'
 describe('graph service functions', function() {
 
   test('find nodes by id', () => {
-    let graph: Node = Node.ofRawNode({
+    const graph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
         { id: 'a' },
@@ -18,14 +18,14 @@ describe('graph service functions', function() {
         }
       ]
     })
-    let graphService = new GraphService(graph)
+    const graphService = new GraphService(graph)
 
     expect(graphService.findNode('a').id).to.eql('a')
     expect(graphService.findNode('c').id).to.eql('c')
   })
 
   test('reduce node to certain nodes', () => {
-    let node: Node = Node.ofRawNode({
+    const node: Node = Node.ofRawNode({
       id: 'a',
       nodes: [
         { id: 'b' },
@@ -45,7 +45,7 @@ describe('graph service functions', function() {
         { sourceId: 'b', targetId: 'd' }
       ]
     })
-    let graphService = new GraphService(node)
+    const graphService = new GraphService(node)
 
     expect(graphService.reduceNodesRecursive(node, ['b', 'c']))
       .to.eql(Node.ofRawNode({

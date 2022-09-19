@@ -1,5 +1,4 @@
 import { SystemFetcher } from './SystemFetcher'
-import { largeDemoSystem } from '../exampleSystems/largeSystem'
 import { system as simpleDemoSystem } from '../exampleSystems/simpleSystem'
 import { RandomWordAnonymizer } from './RandomWordAnonymizer'
 import { Node, INode } from '../domain/model'

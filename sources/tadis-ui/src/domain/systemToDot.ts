@@ -1,4 +1,4 @@
-import { Node, Edge, Props } from './model'
+import { Node, Edge } from './model'
 import * as _ from 'lodash'
 
 export interface Options {
@@ -13,14 +13,14 @@ export class SystemToDotConverter {
   constructor(private options?: Options) { }
 
   convertSystemToDot(system: Node): string {
-    let dotNodes: string = this.convertNodesToDot(this.getNonSubSystemNodes(system), 1)
-    let dotNodesDebug = this.convertNodesToDotForDebug(this.getNonSubSystemNodes(system), 1)
+    const dotNodes: string = this.convertNodesToDot(this.getNonSubSystemNodes(system), 1)
+    const dotNodesDebug = this.convertNodesToDotForDebug(this.getNonSubSystemNodes(system), 1)
 
-    let dotSubGraphs: string = this.getSubSystemNodes(system)
+    const dotSubGraphs: string = this.getSubSystemNodes(system)
       .map((subSystem) => this.convertSubSystemToDot(subSystem))
       .join('\n')
 
-    let dotLinks: string = !this.inDebugMode()
+    const dotLinks: string = !this.inDebugMode()
       ? this.convertEdgesToDot(system.getEdges(), 1)
       : this.convertEdgesToDotForDebug(system.getEdges(), 1)
 
@@ -30,7 +30,7 @@ export class SystemToDotConverter {
     // splines=polyline;
     // edge[dir=both, arrowhead="normal", arrowtail="dot"];
     // INFO: don't change indentation below. it is important!
-    let dotGraph: string = `strict digraph {
+    const dotGraph = `strict digraph {
     size="40"
     rankdir="${rankDir}";
     ranksep=1;
@@ -54,10 +54,10 @@ ${dotSubGraphs}
   }
 
   private convertSubSystemToDot(node: Node): string {
-    let dotNodes: string = this.convertNodesToDot(node.getNodes(), 2)
-    let dotNodesDebug = this.convertNodesToDotForDebug(node.getNodes(), 2)
+    const dotNodes: string = this.convertNodesToDot(node.getNodes(), 2)
+    const dotNodesDebug = this.convertNodesToDotForDebug(node.getNodes(), 2)
 
-    let dotEdges: string = !this.inDebugMode()
+    const dotEdges: string = !this.inDebugMode()
       ? this.convertEdgesToDot(node.getEdges(), 2)
       : this.convertEdgesToDotForDebug(node.getEdges(), 2)
 
@@ -65,7 +65,7 @@ ${dotSubGraphs}
     const optionalUrl = url ? url + ';' : ''
 
     // INFO: don't change indentation below. it is important!
-    let dotGraph = `  subgraph cluster_${node.getName()} {
+    const dotGraph = `  subgraph cluster_${node.getName()} {
     label = "cabinet ${node.getName()}";
     fontname = "Arial";
     style = "filled";

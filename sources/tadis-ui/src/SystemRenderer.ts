@@ -24,7 +24,7 @@ export class SystemRenderer {
   }
 
   private readonly defaultOptions: SystemToDotOptions = {
-    urlExtractor: (node: Node) => ''
+    urlExtractor: () => ''
   }
 
   renderSystem(

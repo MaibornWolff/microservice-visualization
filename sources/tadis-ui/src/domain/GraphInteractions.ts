@@ -1,8 +1,7 @@
-import { Node, Edge } from './model'
+import { Node } from './model'
 import { NodeFocusser } from './NodeFocusser'
 import { NodeCollapser } from './NodeCollapser'
 import { GraphService } from './service'
-import * as _ from 'lodash'
 
 export class GraphInteractions {
   static focusNode(graph: Node, focusNodeId: string): Node {

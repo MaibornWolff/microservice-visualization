@@ -1,5 +1,5 @@
 import * as randomWord from 'random-word'
-import { Node, Edge } from '../domain/model'
+import { Node } from '../domain/model'
 import { GraphService } from '../domain/service'
 
 export class RandomWordAnonymizer {
@@ -25,7 +25,7 @@ export class RandomWordAnonymizer {
   }
 
   getNewName(name) {
-    let newName = randomWord()
+    const newName = randomWord()
     console.log('replacing name ' + name + ' by ' + newName)
 
     if (name.startsWith('exchange')) {

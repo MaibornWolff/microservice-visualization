@@ -4,16 +4,16 @@ export class NodeCollapser {
 
   collapseContainedNodes(graph: Node): Node {
     if (graph.hasEdges()) {
-      let redirectedEdges = graph.getEdges()
+      const redirectedEdges = graph.getEdges()
         .map(edge => this.getEdgeEndingsRedirectedToTopLevelNodes(graph, edge))
 
-      let collapsedNodes = graph.getNodes()
+      const collapsedNodes = graph.getNodes()
         .map(node => {
-          let nodeCopy = JSON.parse(JSON.stringify(node))
+          const nodeCopy = JSON.parse(JSON.stringify(node))
           return new Node(nodeCopy.id, nodeCopy.name, nodeCopy.type, [], [], nodeCopy.properties)
         })
 
-      let graphCopy = JSON.parse(JSON.stringify(graph))
+      const graphCopy = JSON.parse(JSON.stringify(graph))
       return new Node(graphCopy.id, graphCopy.name, graphCopy.type, collapsedNodes, redirectedEdges, graphCopy.properties)
     } else {
       return graph

@@ -1,5 +1,3 @@
-import * as _ from 'lodash'
-
 export interface INode {
   id: string
   name?: string
@@ -39,9 +37,9 @@ export class Node {
   }
 
   static ofRawNode(rawNode: INode): Node {
-    let nodes = rawNode.nodes ? rawNode.nodes.map(node => Node.ofRawNode(node)) : []
-    let edges = rawNode.edges ? rawNode.edges.map(edge => Edge.ofRawEdge(edge)) : []
-    let properties = rawNode.properties ? JSON.parse(JSON.stringify(rawNode.properties)) : {}
+    const nodes = rawNode.nodes ? rawNode.nodes.map(node => Node.ofRawNode(node)) : []
+    const edges = rawNode.edges ? rawNode.edges.map(edge => Edge.ofRawEdge(edge)) : []
+    const properties = rawNode.properties ? JSON.parse(JSON.stringify(rawNode.properties)) : {}
     return new Node(rawNode.id, rawNode.name, rawNode.type, nodes, edges, properties)
   }
 
@@ -82,7 +80,7 @@ export class Node {
   }
 
   getProp(propName: string, alternativeValue: any): any {
-    let value = this.properties ? this.properties[propName] : undefined
+    const value = this.properties ? this.properties[propName] : undefined
     return value !== undefined ? value : alternativeValue
   }
 
@@ -109,7 +107,7 @@ export class Edge {
   }
 
   static ofRawEdge(rawEdge: IEdge): Edge {
-    let properties = rawEdge.properties ? JSON.parse(JSON.stringify(rawEdge.properties)) : {}
+    const properties = rawEdge.properties ? JSON.parse(JSON.stringify(rawEdge.properties)) : {}
     return new Edge(rawEdge.sourceId, rawEdge.targetId, rawEdge.type, properties)
   }
 

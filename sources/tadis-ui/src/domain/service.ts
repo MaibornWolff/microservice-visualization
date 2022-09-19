@@ -52,15 +52,15 @@ export class GraphService {
   }
 
   getNeighbourNodes(node: Node): Node[] {
-    let sourceIds = this.getAllEdges()
+    const sourceIds = this.getAllEdges()
       .filter((edge) => node.sameId(edge.targetId))
       .map((edge) => edge.sourceId)
 
-    let targetIds = this.getAllEdges()
+    const targetIds = this.getAllEdges()
       .filter((edge) => node.sameId(edge.sourceId))
       .map((edge) => edge.targetId)
 
-    let neighbourNodes = this.getAllNodes()
+    const neighbourNodes = this.getAllNodes()
       .filter((node) => sourceIds.includes(node.id) || targetIds.includes(node.id))
 
     return neighbourNodes

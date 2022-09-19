@@ -1,7 +1,7 @@
 export const appBaseUrl = '/tadis'
 
 export function getBaseUrlInCurrentEnvironment() {
-  let appBaseUrlStart = window.location.href.lastIndexOf(appBaseUrl)
+  const appBaseUrlStart = window.location.href.lastIndexOf(appBaseUrl)
   if (appBaseUrlStart === -1) {
     return appBaseUrlStart
   } else {

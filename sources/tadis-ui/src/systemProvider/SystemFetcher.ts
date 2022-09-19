@@ -24,7 +24,7 @@ export class SystemFetcher {
 
   async fetchSystem(): Promise<INode> {
     if (this.isProduction()) {
-      let cachedResponse = this.cache.get(this.SYSTEM_CACHE_KEY)
+      const cachedResponse = this.cache.get(this.SYSTEM_CACHE_KEY)
       if (cachedResponse) {
         console.log('using cached system')
         return cachedResponse
@@ -36,8 +36,8 @@ export class SystemFetcher {
 
     console.log('fetching system via url ' + systemUrl)
     try {
-      let response = await axios.default.get(systemUrl)
-      let system = response.data
+      const response = await axios.default.get(systemUrl)
+      const system = response.data
       if (this.isProduction()) {
         console.log('caching system')
         this.cache.set(this.SYSTEM_CACHE_KEY, system)

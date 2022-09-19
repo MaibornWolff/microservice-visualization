@@ -9,8 +9,8 @@ export class NodeActions {
   private nodeFocusser: NodeFocusser
   private focusedSystem: Node = null
   private focusedNodeId: string = null
-  private focusLevel: number = 1
-  private altKeyPressed: boolean = false
+  private focusLevel = 1
+  private altKeyPressed = false
   private altKeyInfoText: string = null
   private selectedNode: any = null
   private initialNodeColorsById: Map<string, string[]> = new Map()
@@ -38,6 +38,7 @@ export class NodeActions {
           this.focusedNodeId = id
           this.focusedSystem = this.nodeFocusser.focusNodeById(id, this.focusLevel)
 
+          /* eslint-disable @typescript-eslint/no-this-alias */
           const actualThis = this
           this.systemRenderer.renderSystem(this.focusedSystem, function() {
             // INFO: extracting this code to a separate function was not working

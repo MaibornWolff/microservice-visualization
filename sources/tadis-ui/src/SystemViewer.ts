@@ -7,7 +7,7 @@ import { getBaseUrlInCurrentEnvironment } from './appBaseUrl'
 
 import { SystemRenderer } from './SystemRenderer'
 import { GraphService } from './domain/service'
-import { Node, INode } from './domain/model'
+import { Node } from './domain/model'
 import { NodeActions } from './ui/NodeActions'
 import { MenuActions } from './ui/MenuActions'
 import { LoadExampleAction } from './ui/LoadExampleAction'
@@ -47,7 +47,7 @@ export function load() {
         .attr('id', 'load-example-link')
         .classed('f5 grow no-underline br-pill ph3 pv2 dib red bg-white clickable', true)
 
-      new LoadExampleAction().install(displaySystem, getSystemToDotOptions())
+      new LoadExampleAction().install(displaySystem)
     })
 }
 

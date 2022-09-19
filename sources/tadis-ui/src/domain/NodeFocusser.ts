@@ -10,7 +10,7 @@ export class NodeFocusser {
     this.graphService = graphService
   }
 
-  focusNodeById(focusedNodeId: string, neighbourHoodLevel: number = 1): Node {
+  focusNodeById(focusedNodeId: string, neighbourHoodLevel = 1): Node {
     const focusedNode = this.graphService.findNode(focusedNodeId)
     return this.focusNode(focusedNode, neighbourHoodLevel)
   }
