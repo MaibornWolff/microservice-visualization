@@ -88,9 +88,8 @@ export class ConfigService {
       RABBIT_URL: Joi.string().optional()
     })
 
-    const { error, value: validatedEnvConfig } = Joi.validate(
+    const { error, value: validatedEnvConfig } = envVarsSchema.validate(
       envConfig,
-      envVarsSchema,
       {
         allowUnknown: true
       }
