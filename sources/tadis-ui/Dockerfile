@@ -1,5 +1,5 @@
 # stage: build
-FROM node:16-alpine as build
+FROM node:19-alpine as build
 
 RUN mkdir -p /viewer/src
 COPY src /viewer/src/
@@ -16,7 +16,7 @@ RUN npm run test
 RUN npm run build
 
 # stage: install prod packages & run
-FROM node:16-alpine
+FROM node:19-alpine
 
 RUN mkdir -p /viewer/build
 COPY --from=build /viewer/build /viewer/build/
