@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import * as queryString from 'query-string'
+import { default as queryString } from 'query-string'
 import * as _ from 'lodash'
 
 import { system as rawSystem } from '../exampleSystems/simpleSystem'

@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 import { select } from 'd3'
-import * as queryString from 'query-string'
+import { default as queryString } from 'query-string'
 import * as _ from 'lodash'
 
 import { getBaseUrlInCurrentEnvironment } from './appBaseUrl'
