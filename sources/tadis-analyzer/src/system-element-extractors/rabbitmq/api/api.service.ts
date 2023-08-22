@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common'
 import { HttpService } from '@nestjs/axios'
-
+import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '../../../config/Config.service'
+
 
 @Injectable()
 export class RabbitMqManagementApiService {
@@ -46,7 +46,7 @@ export class RabbitMqManagementApiService {
       return response.data
     } catch (error) {
       this.logger.error(
-        'sending request failed, using options: ' + JSON.stringify(axiosConfig)
+        `sending request failed for user: ${axiosConfig?.auth?.username}`
       )
       throw error
     }
