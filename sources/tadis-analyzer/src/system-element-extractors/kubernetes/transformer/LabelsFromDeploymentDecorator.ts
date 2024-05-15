@@ -28,7 +28,9 @@ export class LabelsFromDeploymentDecorator {
         const associatedMicroService = this.findAssociatedMicroService(system, deployment)
         if (associatedMicroService) {
           associatedMicroService.getPayload().labels = deployment.metadata.labels
-          this.logger.log('added labels for service ' + associatedMicroService)
+          this.logger.log('added labels ' +
+            JSON.stringify(associatedMicroService.getPayload().labels) +
+            ' for service ' + associatedMicroService.getName())
         }
       }
     }
