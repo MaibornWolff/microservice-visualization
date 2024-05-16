@@ -1,6 +1,6 @@
 {
   "name": "tadis-analyzer",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "generic analyzer tool for architecture discovery",
   "main": "build/src/lib.js",
   "types": "build/src/lib.d.ts",
