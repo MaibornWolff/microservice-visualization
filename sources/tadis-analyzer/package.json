@@ -1,6 +1,6 @@
 {
   "name": "tadis-analyzer",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "generic analyzer tool for architecture discovery",
   "main": "build/src/lib.js",
   "types": "build/src/lib.d.ts",
@@ -31,7 +31,7 @@
     "docker-publish": "node docker-publish.js"
   },
   "dependencies": {
-    "@kubernetes/client-node": "^0.18.1",
+    "@kubernetes/client-node": "^0.22.2",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.5",
     "@nestjs/core": "^9.0.5",
