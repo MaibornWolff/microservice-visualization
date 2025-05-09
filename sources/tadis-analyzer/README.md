@@ -26,7 +26,7 @@ Environment Variables:
 
 ## Getting Started
 
-Please see [customized-analyzer-example](../customized-analyzer-example/README.md).
+Please see [custom-example-analyzer](../custom-example-analyzer/README.md).
 
 ## Transformers
 

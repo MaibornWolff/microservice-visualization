@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
 import { ConfigService } from '../config/Config.service'
 import { GitStorage, StorageStatus } from './GitStorage'
@@ -14,8 +14,8 @@ export class GitStorageService {
     )
   }
 
-  async storeRepository(repositoryName: string): Promise<string | undefined> {
-    return this.gitStorage.storeRepository(repositoryName)
+  async storeRepository(repositoryName: string, remoteRepositoryName?: string): Promise<string | undefined> {
+    return this.gitStorage.storeRepository(repositoryName, remoteRepositoryName ?? repositoryName)
   }
 
   async getStorageStatus(): Promise<StorageStatus[]> {

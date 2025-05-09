@@ -25,16 +25,18 @@ export class GitStorage {
   constructor(private sourceFolder: string, private gitBaseUrls: string[]) { }
 
   // TODO: improve error handling when ssh key is missing or not authorized
-  async storeRepository(repositoryName: string): Promise<string | undefined> {
+  async storeRepository(localRepositoryName: string, remoteRepositoryName: string): Promise<string | undefined> {
     for (const baseUrl of this.gitBaseUrls) {
-      const url = baseUrl + '/' + repositoryName
-      const localPath = await this.storeRepositoryFromUrl(repositoryName, url)
+      const url = baseUrl + '/' + remoteRepositoryName
+      const localPath = await this.storeRepositoryFromUrl(localRepositoryName, url)
       if (localPath) {
         return localPath
       }
     }
     // TODO: maybe there is some way to check if a repository should be stored?
-    this.logger.warn('could not store repository ' + repositoryName + ' from any base URL!')
+    this.logger.warn('could not store repository ' + localRepositoryName +
+      (remoteRepositoryName !== localRepositoryName ? ' (remoteRepositoryName: ' + remoteRepositoryName + ') ' : '') +
+      ' from any base URL!')
   }
 
   clearRepository(directoryName: string) {
