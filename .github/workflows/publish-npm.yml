@@ -8,10 +8,12 @@ on:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
       # Setup .npmrc file to publish to GitHub Packages
     - uses: actions/setup-node@v4
@@ -20,7 +22,6 @@ jobs:
         registry-url: 'https://npm.pkg.github.com'
         # Defaults to the user or organization that owns the workflow file
         scope: '@blaccello'
-    - run: cp .npmrc ./sources/tadis-analyzer/.npmrc
     - run: npm ci
       working-directory: ./sources/tadis-analyzer
     - run: |
