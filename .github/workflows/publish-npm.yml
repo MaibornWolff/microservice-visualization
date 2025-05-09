@@ -30,8 +30,8 @@ jobs:
       working-directory: ./sources/tadis-analyzer
       run: npm run build
 
-    - name: Publish package
+    - name: Publish package with tag version
       working-directory: ./sources/tadis-analyzer
       env:
-        NPM_CONFIG_TAG: ${{ github.ref_name }}
-      run: npm version ${GITHUB_REF_NAME#refs/tags/v} && npm publish
+        VERSION: ${{ github.ref_name#refs/tags/v }}
+      run: npm version $VERSION && npm publish
