@@ -26,7 +26,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Log in to GitHub Container Registry
-      if: github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'dev' || startsWith(github.ref, 'refs/tags/v')
+      if: startsWith(github.ref, 'refs/tags/v')
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
       with:
         registry: ${{ env.REGISTRY }}
@@ -45,11 +45,12 @@ jobs:
       with:
         context: ./sources/tadis-ui
         file: ./sources/tadis-ui/Dockerfile
-        push: ${{ github.ref_name == 'main' || github.ref_name == 'master' || github.ref_name == 'dev' || startsWith(github.ref, 'refs/tags/v') }}
+        push: ${{ startsWith(github.ref, 'refs/tags/v') }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Generate artifact attestation
+      if: startsWith(github.ref, 'refs/tags/v')
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
