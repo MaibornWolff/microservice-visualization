@@ -32,6 +32,6 @@ jobs:
 
     - name: Publish package with tag version
       working-directory: ./sources/tadis-analyzer
-      env:
-        VERSION: ${{ github.ref_name#refs/tags/v }}
-      run: npm version $VERSION && npm publish
+      run: |
+        TAG_VERSION=${GITHUB_REF#refs/tags/v}
+        npm version $TAG_VERSION && npm publish
