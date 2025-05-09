@@ -8,7 +8,7 @@ on:
       - "v*"
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io/blaccello
   IMAGE_NAME: tadis-ui
 
 jobs:
