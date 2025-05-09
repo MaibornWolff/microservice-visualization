@@ -1,0 +1,25 @@
+name: Semantic Versioning and Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+
+jobs:
+  semantic-release:
+    runs-on: ubuntu-latest
+    environment:
+      name: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
