@@ -13,25 +13,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+      # Setup .npmrc file to publish to GitHub Packages
+    - uses: actions/setup-node@v4
+
       with:
-        node-version: '22'
-        registry-url: 'https://npm.pkg.github.com/'
-
-    - name: Authenticate with GitHub npm Registry
-      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
-
-    - name: Install dependencies
+        node-version: '22.x'
+        registry-url: 'https://npm.pkg.github.com'
+        # Defaults to the user or organization that owns the workflow file
+        #scope: '@octocat'
+    - run: npm ci
       working-directory: ./sources/tadis-analyzer
-      run: npm install
-
-    - name: Build package
-      working-directory: ./sources/tadis-analyzer
-      run: npm run build
-
-    - name: Publish package with tag version
-      working-directory: ./sources/tadis-analyzer
-      run: |
+    - run: |
         TAG_VERSION=${GITHUB_REF#refs/tags/v}
-        npm version $TAG_VERSION && npm publish
+        npm version $TAG_VERSION
+      working-directory: ./sources/tadis-analyzer
+    - run: npm publish
+      working-directory: ./sources/tadis-analyzer
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
