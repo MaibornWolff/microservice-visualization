@@ -1,0 +1,37 @@
+name: Publish to GitHub npm Registry
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+        registry-url: 'https://npm.pkg.github.com/'
+
+    - name: Authenticate with GitHub npm Registry
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+    - name: Install dependencies
+      working-directory: ./sources/tadis-analyzer
+      run: npm install
+
+    - name: Build package
+      working-directory: ./sources/tadis-analyzer
+      run: npm run build
+
+    - name: Publish package
+      working-directory: ./sources/tadis-analyzer
+      env:
+        NPM_CONFIG_TAG: ${{ github.ref_name }}
+      run: npm version ${GITHUB_REF_NAME#refs/tags/v} && npm publish
