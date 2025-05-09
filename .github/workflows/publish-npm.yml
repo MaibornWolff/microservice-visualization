@@ -20,14 +20,14 @@ jobs:
         node-version: '22.x'
         registry-url: 'https://npm.pkg.github.com'
         # Defaults to the user or organization that owns the workflow file
-        #scope: '@octocat'
+        scope: '@blaccello'
     - run: npm ci
       working-directory: ./sources/tadis-analyzer
     - run: |
         TAG_VERSION=${GITHUB_REF#refs/tags/v}
         npm version $TAG_VERSION
       working-directory: ./sources/tadis-analyzer
-    - run: npm publish
+    - run: npm publish  --access restricted
       working-directory: ./sources/tadis-analyzer
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
