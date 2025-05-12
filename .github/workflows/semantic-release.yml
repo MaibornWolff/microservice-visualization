@@ -10,8 +10,11 @@ on:
 jobs:
   semantic-release:
     runs-on: ubuntu-latest
-    environment:
-      name: ci
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout code
