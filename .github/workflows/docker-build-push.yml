@@ -6,6 +6,10 @@ on:
       - "*"
     tags:
       - "v*"
+  workflow_run:
+    workflows: [Semantic Versioning and Release]
+    types:
+      - completed
 
 env:
   REGISTRY: ghcr.io/blaccello
