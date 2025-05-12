@@ -1,6 +1,6 @@
 {
   "name": "tadis-ui",
-  "version": "1.3.0",
+  "version": "0.0.1",
   "description": "",
   "main": "src/viewer.ts",
   "scripts": {
