@@ -27,6 +27,7 @@ if (isProduction()) {
   console.log('running in production mode')
 }
 
+const routeRegistry: { method: string, path: string }[] = []
 addRestHandlers(app)
 
 const PORT = process.env.PORT || 8080
@@ -41,7 +42,9 @@ function addRestHandlers(app: express.Express) {
   // - then /dot is used directly when rendering the system
   // - requires to compute focus on nodes in backend of frontend as well
 
-  app.get(`${appBaseUrl}/system`, (req, res) => {
+  const systemPath = `${appBaseUrl}/system`
+  routeRegistry.push({ method: 'get', path: systemPath })
+  app.get(systemPath, (req, res) => {
     systemProvider.getSystem(req.query).then(system => {
       if (system) {
         res.send(system)
@@ -54,7 +57,9 @@ function addRestHandlers(app: express.Express) {
       })
   })
 
-  app.get(`${appBaseUrl}/svg`, (req, res) => {
+  const svgPath = `${appBaseUrl}/svg`
+  routeRegistry.push({ method: 'get', path: svgPath })
+  app.get(svgPath, (req, res) => {
     systemProvider.getSystem(req.query).then(system => {
       if (system) {
         const options: ConverterOptions = {
@@ -74,7 +79,9 @@ function addRestHandlers(app: express.Express) {
       })
   })
 
-  app.get(`${appBaseUrl}/dot`, (req, res) => {
+  const dotPath = `${appBaseUrl}/dot`
+  routeRegistry.push({ method: 'get', path: dotPath })
+  app.get(dotPath, (req, res) => {
     systemProvider.getSystem(req.query).then(system => {
       if (system) {
         const options: ConverterOptions = {
@@ -93,19 +100,14 @@ function addRestHandlers(app: express.Express) {
   })
 
   app.get('/', (req, res) => {
-    const endpoints = app._router.stack
-      .filter((element) => element.route && element.route.path)
-      .map((element) => {
-        let method = ''
-        if (element.route.stack[0].method) {
-          method = element.route.stack[0].method.toUpperCase()
-        }
-        return { 'path': element.route.path, 'method': method }
-      })
+    const endpoints = routeRegistry.map((route) => ({
+      method: route.method.toUpperCase(),
+      path: route.path
+    }))
 
     endpoints.push({
       method: 'GET',
-      path: '' + appBaseUrl + '/html/'
+      path: `${appBaseUrl}/html/`
     })
 
     const endpointHtml = endpoints.map(endpoint => `${endpoint.method}: <a href="${endpoint.path}">${endpoint.path}</a>`).join('<br/>')
@@ -113,7 +115,9 @@ function addRestHandlers(app: express.Express) {
     res.send(`<h1>API</h1>${endpointHtml}`)
   })
 
-  app.get(`${appBaseUrl}/version`, (req, res) => {
+  const versionPath = `${appBaseUrl}/version`
+  routeRegistry.push({ method: 'get', path: versionPath })
+  app.get(versionPath, (req, res) => {
     res.send(process.env.npm_package_version)
   })
 }
