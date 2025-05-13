@@ -1,5 +1,9 @@
 {
   "name": "tadis-analyzer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaibornWolff/microservice-visualization.git"
+  },
   "version": "2.2.2",
   "description": "generic analyzer tool for architecture discovery",
   "main": "build/src/lib.js",

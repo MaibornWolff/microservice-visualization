@@ -1,0 +1,43 @@
+name: Semantic Versioning and Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+
+jobs:
+  semantic-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
+      actions: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Semantic Release
+        id: semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - env:
+          PUBLISHED_NEW_VERSION: ${{ steps.semantic-release.outputs.new_release_published }}
+          VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: Trigger Publishing of Docker Image and NPM Package
+        run:
+          |
+          if [[ "${PUBLISHED_NEW_VERSION}" == "true" ]]; then
+            echo "New version published: ${VERSION}."
+            echo "Triggering Docker image build and push..."
+            gh workflow run docker-build-push.yml --ref "refs/tags/v${VERSION}"
+            echo "Triggering NPM package publish..."
+            gh workflow run publish-npm.yml --ref "refs/tags/v${VERSION}"
+          fi
