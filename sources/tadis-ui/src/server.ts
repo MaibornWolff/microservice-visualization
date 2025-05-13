@@ -2,9 +2,7 @@ import * as express from 'express'
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as envYaml from './envYamlString'
-/* eslint-disable @typescript-eslint/no-var-requires */
-const Viz = require('viz.js');
-import { Module, render } from 'viz.js/full.render';
+import * as Viz from '@viz-js/viz';
 
 import { appBaseUrl } from './appBaseUrl'
 import { SystemProvider } from './systemProvider/SystemProvider'
@@ -68,9 +66,10 @@ function addRestHandlers(app: express.Express) {
           showDebug: req.query.debug ? true : false
         }
         const dotSystem = new SystemToDotConverter(options).convertSystemToDot(system)
-        const viz = new Viz({ Module, render })
-        viz.renderString(dotSystem, { format: 'svg', engine: 'dot' })
-          .then(svgSystem => res.send(svgSystem))
+        Viz.instance().then((viz) => {
+          const svgSystem = viz.renderString(dotSystem, { format: 'svg', engine: 'dot' })
+          res.send(svgSystem)
+        })
           .catch(error => {
             console.error('Error rendering SVG:', error)
             res.status(500).send('An error occurred: ' + (error.message || error));
