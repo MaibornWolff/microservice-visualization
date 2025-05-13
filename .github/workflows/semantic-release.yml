@@ -35,6 +35,9 @@ jobs:
         run:
           |
           if [[ "${PUBLISHED_NEW_VERSION}" == "true" ]]; then
-            echo "New version published: ${VERSION}. Triggering Docker build and push workflow..."
+            echo "New version published: ${VERSION}."
+            echo "Triggering Docker image build and push..."
             gh workflow run docker-build-push.yml --ref "refs/tags/v${VERSION}"
+            echo "Triggering NPM package publish..."
+            gh workflow run publish-npm.yml --ref "refs/tags/v${VERSION}"
           fi
