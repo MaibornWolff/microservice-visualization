@@ -38,7 +38,8 @@ jobs:
         else
           VERSION="0.0.1-${GITHUB_REF_NAME}-${{ github.run_id }}"
         fi
-        npm version "${VERSION//\//}"
+        VERSION="${VERSION//\//}"
+        npm version "$VERSION"
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
@@ -60,11 +61,12 @@ jobs:
       with:
         context: ./sources/tadis-ui
         file: ./sources/tadis-ui/Dockerfile
-        push: true
+        push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Generate artifact attestation
+      if: ${{ github.event_name != 'pull_request' }}
       uses: actions/attest-build-provenance@v2
       with:
         subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
