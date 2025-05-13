@@ -2,7 +2,8 @@ import * as express from 'express'
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as envYaml from './envYamlString'
-import Viz from 'viz.js';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const Viz = require('viz.js');
 import { Module, render } from 'viz.js/full.render';
 
 import { appBaseUrl } from './appBaseUrl'
