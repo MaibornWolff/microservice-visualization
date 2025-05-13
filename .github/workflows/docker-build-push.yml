@@ -38,7 +38,7 @@ jobs:
         else
           VERSION="0.0.1-${GITHUB_REF_NAME}-${{ github.run_id }}"
         fi
-        npm version "$VERSION"
+        npm version "${VERSION//\//}"
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
