@@ -30,6 +30,7 @@ jobs:
       - env:
           PUBLISHED_NEW_VERSION: ${{ steps.semantic-release.outputs.new_release_published }}
           VERSION: ${{ steps.semantic-release.outputs.new_release_version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         name: Trigger Publishing of Docker Image and NPM Package
         run:
           |
