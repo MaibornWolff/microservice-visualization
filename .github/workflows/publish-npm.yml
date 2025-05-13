@@ -1,4 +1,4 @@
-name: Publish to GitHub npm Registry
+name: Publish to NPM Registry
 
 on:
   workflow_dispatch:
@@ -13,8 +13,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    environment:
-      name: ci
 
     steps:
     - uses: actions/checkout@v4
