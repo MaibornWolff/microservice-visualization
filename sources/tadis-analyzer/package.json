@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "author": "Andreas Blunk, MaibornWolff GmbH",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf build && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/app/default/main.ts",
     "start:dev": "nodemon",

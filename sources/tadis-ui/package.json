@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "tsc && webpack --mode development",
     "start": "node build/src/server.js",
-    "build": "tsc && webpack --mode production",
+    "build": "rm -rf build && tsc && webpack --mode production",
     "start:prod": "NODE_ENV=production node build/src/server.js",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register test/**/*.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",

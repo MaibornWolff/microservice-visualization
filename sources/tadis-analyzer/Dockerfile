@@ -1,5 +1,5 @@
 # stage: build
-FROM node:10.14-alpine as build
+FROM node:24.0.1-alpine as build
 
 RUN mkdir -p /app/src
 COPY src /app/src/
@@ -13,7 +13,7 @@ RUN yarn test
 RUN yarn build
 
 # stage: install prod packages & run
-FROM node:10.14-alpine
+FROM node:24.0.1-alpine
 
 RUN apk update && apk add --no-cache openssh-client git bash
 
