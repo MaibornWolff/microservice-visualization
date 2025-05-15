@@ -76,7 +76,9 @@ function getDirectoryEntries(path): Promise<string[]> {
  * the service name will be the name of the folder that is directly contained in the source path.
  */
 export function getServiceNameFromPath(sourcePath, file) {
-  const strippedPath = file.slice(sourcePath.length + 1)
+  const absoluteSourcePath = p.resolve(sourcePath)
+  const absoluteFilePath = p.resolve(file)
+  const strippedPath = absoluteFilePath.slice(absoluteSourcePath.length + 1)
   return strippedPath.slice(0, strippedPath.indexOf('/'))
 }
 
