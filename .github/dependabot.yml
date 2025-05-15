@@ -3,16 +3,43 @@ updates:
   - package-ecosystem: "npm"
     directory: "/sources/tadis-analyzer"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    commit-message:
+      prefix: "fix(tadis-analyzer)"
+      prefix-development: "chore(tadis-analyzer)"
+
   - package-ecosystem: "npm"
     directory: "/sources/tadis-ui"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    commit-message:
+      prefix: "fix(tadis-ui)"
+      prefix-development: "chore(tadis-ui)"
+
   - package-ecosystem: "npm"
     directory: "/sources/custom-example-analyzer"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "chore(example-analyzer)"
+
+  - package-ecosystem: "docker"
+    directory: "/sources/tadis-analyzer"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(tadis-analyzer)"
+
   - package-ecosystem: "docker"
     directory: "/sources/tadis-ui"
     schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "fix(tadis-ui)"
+
+  - package-ecosystem: "docker"
+    directory: "/sources/custom-example-analyzer"
+    schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "chore(example-analyzer)"
