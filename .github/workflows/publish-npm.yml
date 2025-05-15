@@ -22,13 +22,45 @@ jobs:
       with:
         node-version: '22.x'
 
-    - name: Install dependencies
+    - name: Install dependencies for tadis-analyzer
       working-directory: ./sources/tadis-analyzer
       run: npm ci
-
-    - name: Run Tests
+    - name: Run test for tadis-analyzer
       working-directory: ./sources/tadis-analyzer
       run: npm run test
+    - name: Run build for tadis-analyzer
+      working-directory: ./sources/tadis-analyzer
+      run: npm run build
+
+    - name: Install dependencies for custom-example-analyzer (requires tadis-analyzer)
+      working-directory: ./sources/custom-example-analyzer
+      run: npm install ../tadis-analyzer
+
+    - name: Run build for custom-example-analyzer
+      working-directory: ./sources/custom-example-analyzer
+      run: npm run build
+
+  test-tadis-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+
+    - name: Install dependencies for tadis-ui
+      working-directory: ./sources/tadis-ui
+      run: npm ci
+    - name: Run test for tadis-ui
+      working-directory: ./sources/tadis-ui
+      run: npm run test
+    - name: Run build for tadis-ui
+      working-directory: ./sources/tadis-ui
+      run: npm run build
 
   publish-npm:
     needs: run-tests
