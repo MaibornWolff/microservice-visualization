@@ -35,7 +35,7 @@
     "docker-publish": "node docker-publish.js"
   },
   "dependencies": {
-    "@kubernetes/client-node": "^0.22.3",
+    "@kubernetes/client-node": "^1.2.0",
     "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
