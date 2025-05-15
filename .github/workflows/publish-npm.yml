@@ -11,7 +11,6 @@ on:
 
 jobs:
   run-tests:
-    name: Run Tests for tadis-analyzer and custom-example-analyzer
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +41,6 @@ jobs:
       run: npm run build
 
   test-tadis-ui:
-    name: Run Tests for tadis-ui
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +63,6 @@ jobs:
       run: npm run build
 
   publish-npm:
-    name: Publish to NPM Registry
     needs: run-tests
     if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
