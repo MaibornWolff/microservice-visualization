@@ -20,6 +20,7 @@ updates:
     directory: "/sources/custom-example-analyzer"
     schedule:
       interval: "weekly"
+    commit-message:
       prefix: "chore(example-analyzer)"
 
   - package-ecosystem: "docker"
