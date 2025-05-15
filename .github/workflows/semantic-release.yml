@@ -1,11 +1,9 @@
 name: Semantic Versioning and Release
 
 on:
-  push:
-    branches:
-      - main
-      - master
-      - dev
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 * * *' # Run once a day at midnight UTC
 
 jobs:
   semantic-release:
