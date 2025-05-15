@@ -1,5 +1,5 @@
 # stage: build
-FROM node:24.0.1-alpine AS build
+FROM node:24.0.0-alpine AS build
 WORKDIR /viewer
 
 COPY *.json ./
