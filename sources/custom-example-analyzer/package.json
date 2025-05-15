@@ -6,22 +6,23 @@
   "author": "Andreas Blunk, MaibornWolff GmbH",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf build && tsc",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "docker-compose": "docker-compose --env-file .env-public-default up"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.5",
-    "@nestjs/core": "^9.0.5",
-    "@nestjs/platform-express": "^9.0.5",
-    "dotenv": "^16.0.1",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.5",
-    "tadis-analyzer": "^2.2.0"
+    "@nestjs/common": "^11.1.1",
+    "@nestjs/core": "^11.1.1",
+    "@nestjs/platform-express": "^11.1.1",
+    "dotenv": "^16.5.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "tadis-analyzer": "file:../tadis-analyzer"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.0.0",
-    "typescript": "^4.7.4"
+    "@types/node": "^22.15.18",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
   }
 }

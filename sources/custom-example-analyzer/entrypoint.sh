@@ -1,3 +1,4 @@
-#!/bin/bash
-cd app
-yarn start
+#!/bin/sh
+
+cd app || exit 1
+npm run start

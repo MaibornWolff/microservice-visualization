@@ -1,15 +1,21 @@
-# stage: build
-FROM node:16-alpine
+FROM node:24.0.1-alpine
+
+RUN mkdir -p /tadis-analyzer/src
+COPY tadis-analyzer/src /tadis-analyzer/src/
+COPY tadis-analyzer/test /tadis-analyzer/test/
+COPY tadis-analyzer/*.json /tadis-analyzer/
+WORKDIR /tadis-analyzer
+RUN npm ci && \
+    npm run build
 
 RUN mkdir -p /app/src
-COPY src /app/src/
-COPY *.json /app/
+COPY custom-example-analyzer/src /app/src/
+COPY custom-example-analyzer/*.json /app/
 
 WORKDIR /app
-RUN npm ci
-RUN apk update && apk add --no-cache openssh-client git bash
-
-COPY entrypoint.sh /
+# use latest version of tadis-analyzer; therefore, context has to be one level up
+RUN npm install && \
+    apk update && apk add --no-cache openssh-client git bash
 
 RUN mkdir -p /app/temp
 
@@ -17,5 +23,4 @@ ARG VERSION
 ENV VERSION=$VERSION
 EXPOSE 8080
 
-WORKDIR /
-CMD [ "./entrypoint.sh" ]
+CMD [ "npm", "run", "start" ]
