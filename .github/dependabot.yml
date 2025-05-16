@@ -43,3 +43,8 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore(example-analyzer)"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
