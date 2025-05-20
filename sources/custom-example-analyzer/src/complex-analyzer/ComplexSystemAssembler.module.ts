@@ -12,7 +12,7 @@ import {
   SystemAssemblerController
 } from 'tadis-analyzer'
 
-import { ComplexSystemAssembler } from './ComplexSystemAssembler.service'
+import { ComplexSystemAssembler } from './ComplexSystemAssembler.service.js'
 
 const customCollectorProvider = {
   provide: SystemAssembler,
