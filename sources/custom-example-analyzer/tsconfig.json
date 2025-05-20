@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "es2024",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "allowJs": true,
     "noImplicitAny": false,
@@ -14,12 +14,13 @@
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": "./",
+    "allowSyntheticDefaultImports": true,
     "types": [
       "node"
     ]
   },
   "lib": [
-    "es2018"
+    "es2024"
   ],
   "rootDirs": [
     "src",
@@ -34,5 +35,9 @@
     "build",
     "tadis-analyzer-snapshot",
     "dummy-system-source"
-  ]
+  ],
+  "ts-node": {
+    "files": true,
+    "esm": true
+  }
 }

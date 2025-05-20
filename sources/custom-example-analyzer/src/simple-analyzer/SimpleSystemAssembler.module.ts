@@ -10,7 +10,7 @@ import {
   SystemAssemblerController
 } from 'tadis-analyzer'
 
-import { SimpleSystemAssembler } from './SimpleSystemAssembler.service'
+import { SimpleSystemAssembler } from './SimpleSystemAssembler.service.js'
 
 @Module({
   imports: [
