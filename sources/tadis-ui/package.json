@@ -46,7 +46,7 @@
     "mocha": "^11.4.0",
     "prettier": "^3.5.3",
     "progress-bar-webpack-plugin": "^2.1.0",
-    "query-string": "^9.1.2",
+    "query-string": "^9.2.0",
     "source-map-loader": "^5.0.0",
     "style-loader": "^4.0.0",
     "tachyons": "^4.12.0",
