@@ -2,7 +2,6 @@ FROM node:24.0.2-alpine
 
 RUN mkdir -p /tadis-analyzer/src
 COPY tadis-analyzer/src /tadis-analyzer/src/
-COPY tadis-analyzer/test /tadis-analyzer/test/
 COPY tadis-analyzer/*.json /tadis-analyzer/
 WORKDIR /tadis-analyzer
 RUN npm ci && \
@@ -15,6 +14,7 @@ COPY custom-example-analyzer/*.json /app/
 WORKDIR /app
 # use latest version of tadis-analyzer; therefore, context has to be one level up
 RUN npm install && \
+    npm run build && \
     apk update && apk add --no-cache openssh-client git bash
 
 RUN mkdir -p /app/temp
@@ -23,4 +23,4 @@ ARG VERSION
 ENV VERSION=$VERSION
 EXPOSE 8080
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "server" ]

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { Logger } from '@nestjs/common'
 import { ConfigService } from 'tadis-analyzer'
 
-import { AppModule } from './app.module'
+import { AppModule } from './app.module.js'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
