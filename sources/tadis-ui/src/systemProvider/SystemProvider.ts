@@ -1,8 +1,8 @@
-import { SystemFetcher } from './SystemFetcher'
-import { system as simpleDemoSystem } from '../exampleSystems/simpleSystem'
-import { RandomWordAnonymizer } from './RandomWordAnonymizer'
-import { Node, INode } from '../domain/model'
-import { GraphService } from '../domain/service'
+import { SystemFetcher } from './SystemFetcher.js'
+import { system as simpleDemoSystem } from '../exampleSystems/simpleSystem.js'
+import { RandomWordAnonymizer } from './RandomWordAnonymizer.js'
+import { Node, INode } from '../domain/model.js'
+import { GraphService } from '../domain/service.js'
 
 export class SystemProvider {
 

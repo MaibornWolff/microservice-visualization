@@ -1,4 +1,4 @@
-import { Node } from './model'
+import { Node } from './model.js'
 
 /**
  * removes all 2nd level edges

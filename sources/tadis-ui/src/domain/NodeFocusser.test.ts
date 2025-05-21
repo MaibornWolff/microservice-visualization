@@ -1,12 +1,10 @@
-import { describe, test } from 'mocha'
-import { expect } from 'chai'
-import { Node } from '~/domain/model'
-import { GraphService } from '~/domain/service'
-import { NodeFocusser } from '~/domain/NodeFocusser'
+import { describe, it, expect } from 'vitest';
+import { Node } from './model.js';
+import { GraphService } from './service.js';
+import { NodeFocusser } from './NodeFocusser.js';
 
-describe('NodeFocusser', function() {
-
-  test('node is focused to neighbours', () => {
+describe('NodeFocusser', () => {
+  it('node is focused to neighbours', () => {
     const inputGraph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -58,10 +56,10 @@ describe('NodeFocusser', function() {
     const nodeFocusser = new NodeFocusser(new GraphService(inputGraph))
     const resultGraph = nodeFocusser.focusNodeById('b')
 
-    expect(resultGraph).to.eql(expectedGraph)
+    expect(resultGraph).toEqual(expectedGraph)
   })
 
-  test('node is focused to neighbours and their neighbours, i.e. 2nd level neighbours', () => {
+  it('node is focused to neighbours and their neighbours, i.e. 2nd level neighbours', () => {
     const inputGraph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -93,10 +91,10 @@ describe('NodeFocusser', function() {
     const nodeFocusser = new NodeFocusser(new GraphService(inputGraph))
     const resultGraph = nodeFocusser.focusNodeById('a', 2)
 
-    expect(resultGraph).to.eql(expectedGraphFocusedToA)
+    expect(resultGraph).toEqual(expectedGraphFocusedToA)
   })
 
-  test('when a node with no edges is focused then outside nodes with edges to inside nodes are added', () => {
+  it('when a node with no edges is focused then outside nodes with edges to inside nodes are added', () => {
     const graph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -141,7 +139,6 @@ describe('NodeFocusser', function() {
       ]
     })
 
-    expect(nodeFocusser.focusNodeById('b')).to.eql(expectedGraph)
+    expect(nodeFocusser.focusNodeById('b')).toEqual(expectedGraph)
   })
-
 })

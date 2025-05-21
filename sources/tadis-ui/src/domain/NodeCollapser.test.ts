@@ -1,11 +1,9 @@
-import { describe, test } from 'mocha'
-import { expect } from 'chai'
-import { Node } from '~/domain/model'
-import { NodeCollapser } from '~/domain/NodeCollapser'
+import { describe, it, expect } from 'vitest';
+import { Node } from './model.js';
+import { NodeCollapser } from './NodeCollapser.js';
 
-describe('node collapser', function() {
-
-  test('top level parent node of a graph is found', () => {
+describe('node collapser', () => {
+  it('top level parent node of a graph is found', () => {
     const graph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -30,11 +28,11 @@ describe('node collapser', function() {
 
     const nodeCollapser = new NodeCollapser()
 
-    expect(nodeCollapser.getTopLevelParentOfNodeInGraph('c', graph).id).to.eql('b')
-    expect(nodeCollapser.getTopLevelParentOfNodeInGraph('d', graph).id).to.eql('b')
+    expect(nodeCollapser.getTopLevelParentOfNodeInGraph('c', graph).id).toBe('b')
+    expect(nodeCollapser.getTopLevelParentOfNodeInGraph('d', graph).id).toBe('b')
   })
 
-  test('edges to inside nodes of all contained nodes are moved to edges to the contained nodes themselfes', () => {
+  it('edges to inside nodes of all contained nodes are moved to edges to the contained nodes themselves', () => {
     const graph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -65,7 +63,7 @@ describe('node collapser', function() {
       ]
     })
 
-    expect(collapsedGraph).to.eql(expectedGraph)
+    expect(collapsedGraph).toEqual(expectedGraph)
   })
 
 })

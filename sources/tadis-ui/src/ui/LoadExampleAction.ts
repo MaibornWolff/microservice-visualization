@@ -2,16 +2,16 @@ import * as d3 from 'd3'
 import { default as queryString } from 'query-string'
 import * as _ from 'lodash'
 
-import { system as rawSystem } from '../exampleSystems/simpleSystem'
-import { Node } from '../domain/model'
-import { Options as SystemToDotOptions } from '../domain/systemToDot'
+import { system as rawSystem } from '../exampleSystems/simpleSystem.js'
+import { Node } from '../domain/model.js'
+import { Options as SystemToDotOptions } from '../domain/systemToDot.js'
 
 export class LoadExampleAction {
-  install(displaySystem: (Node, SystemToDotOptions) => void) {
+  install(displaySystem: (node: Node, systemToDotOptions: SystemToDotOptions) => void) {
     this.registerHandlers(displaySystem)
   }
 
-  registerHandlers(displaySystem: (Node, SystemToDotOptions) => void) {
+  registerHandlers(displaySystem: (node: Node, systemToDotOptions: SystemToDotOptions) => void) {
     d3.select('#load-example-link').on('click', () => {
       const system = Node.ofRawNode(rawSystem)
 

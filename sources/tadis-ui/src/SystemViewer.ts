@@ -3,16 +3,16 @@ import { select } from 'd3'
 import { default as queryString } from 'query-string'
 import * as _ from 'lodash'
 
-import { getBaseUrlInCurrentEnvironment } from './appBaseUrl'
+import { getBaseUrlInCurrentEnvironment } from './appBaseUrl.js'
 
-import { SystemRenderer } from './SystemRenderer'
-import { GraphService } from './domain/service'
-import { Node } from './domain/model'
-import { NodeActions } from './ui/NodeActions'
-import { MenuActions } from './ui/MenuActions'
-import { LoadExampleAction } from './ui/LoadExampleAction'
+import { SystemRenderer } from './SystemRenderer.js'
+import { GraphService } from './domain/service.js'
+import { Node } from './domain/model.js'
+import { NodeActions } from './ui/NodeActions.js'
+import { MenuActions } from './ui/MenuActions.js'
+import { LoadExampleAction } from './ui/LoadExampleAction.js'
 
-import { Options as SystemToDotOptions } from './domain/systemToDot'
+import { Options as SystemToDotOptions } from './domain/systemToDot.js'
 
 export function load() {
   displayVersion()

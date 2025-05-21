@@ -1,5 +1,6 @@
-import { Node, Edge } from './model'
-import * as _ from 'lodash'
+import { Node, Edge } from './model.js'
+import pkg from 'lodash';
+const { flatten, union } = pkg;
 
 export class GraphService {
   private graph: Node
@@ -29,7 +30,7 @@ export class GraphService {
 
   static computeAllEdges(root: Node): Edge[] {
     if (root.getEdges()) {
-      return _.union(root.getEdges(), _.flatten(root.getNodes().map(node => this.computeAllEdges(node))))
+      return union(root.getEdges(), flatten(root.getNodes().map(node => this.computeAllEdges(node))))
     } else {
       return []
     }
@@ -37,7 +38,7 @@ export class GraphService {
 
   static computeAllNodes(root: Node): Node[] {
     if (root.getNodes()) {
-      return _.union(root.getNodes(), _.flatten(root.getNodes().map(node => this.computeAllNodes(node))))
+      return union(root.getNodes(), flatten(root.getNodes().map(node => this.computeAllNodes(node))))
     } else {
       return []
     }
@@ -75,7 +76,7 @@ export class GraphService {
       .filter((edge) => nodeId === edge.sourceId)
       .map((edge) => edge.targetId)
 
-    return _.union(sourceIds, targetIds)
+    return union(sourceIds, targetIds)
   }
 
   isConnected(node: Node): boolean {
