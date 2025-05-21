@@ -1,10 +1,16 @@
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 import { Test, TestingModule } from '@nestjs/testing'
+import { describe, it, beforeAll, beforeEach, expect } from 'vitest'
 
-import { ConfigService } from '../../config/Config.service'
+import { ConfigService } from '../../config/Config.service.js'
 
-import { System } from '../../model/ms'
-import { FeignClientAnnotationAnalyzer } from './FeignClientAnnotationAnalyzer'
-import { verifyEachContentHasTransformer } from '../../test/verifiers'
+import { System } from '../../model/ms.js'
+import { FeignClientAnnotationAnalyzer } from './FeignClientAnnotationAnalyzer.js'
+import { verifyEachContentHasTransformer } from '../../test/verifiers.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 describe(FeignClientAnnotationAnalyzer.name, () => {
   let app: TestingModule
@@ -13,16 +19,14 @@ describe(FeignClientAnnotationAnalyzer.name, () => {
     process.env.NODE_ENV = 'test'
   })
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [],
       providers: [ConfigService, FeignClientAnnotationAnalyzer]
     }).compile()
 
     const config = app.get<ConfigService>(ConfigService)
-    jest.spyOn(config, 'getSourceFolder').mockImplementation(
-      () => __dirname + '/testdata/source-folder'
-    )
+    config.getSourceFolder = () => __dirname + '/testdata/source-folder'
   })
 
   it('transforms', async() => {

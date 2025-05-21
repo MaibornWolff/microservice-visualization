@@ -5,8 +5,8 @@ import {
   AsyncEventFlow,
   MicroService,
   MessageExchange
-} from '../model/ms'
-import { Node, Edge, Metadata } from '../model/core'
+} from '../model/ms.js'
+import { Node, Edge, Metadata } from '../model/core.js'
 
 @Injectable()
 export class MicroserviceWithOutgoingExchangeMerger {

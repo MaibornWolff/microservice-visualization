@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../config/Config.module'
-import { ExchangesFromEnvPayloadCreator } from './ExchangesFromEnvPayloadCreator'
+import { ConfigModule } from '../../config/Config.module.js'
+import { ExchangesFromEnvPayloadCreator } from './ExchangesFromEnvPayloadCreator.js'
 
 @Module({
   imports: [ConfigModule],

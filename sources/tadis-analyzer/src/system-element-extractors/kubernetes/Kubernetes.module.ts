@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 
-import { KubernetesApiService } from './api/api.service'
-import { ConfigModule } from '../../config/Config.module'
-import { EnvDefinitionFromPodDecorator } from './transformer/EnvDefinitionFromPodDecorator'
-import { LabelsFromDeploymentDecorator } from './transformer/LabelsFromDeploymentDecorator'
-import { MicroservicesFromKubernetesCreator } from './transformer/MicroservicesFromKubernetesCreator'
+import { KubernetesApiService } from './api/api.service.js'
+import { ConfigModule } from '../../config/Config.module.js'
+import { EnvDefinitionFromPodDecorator } from './transformer/EnvDefinitionFromPodDecorator.js'
+import { LabelsFromDeploymentDecorator } from './transformer/LabelsFromDeploymentDecorator.js'
+import { MicroservicesFromKubernetesCreator } from './transformer/MicroservicesFromKubernetesCreator.js'
 
 @Module({
   imports: [

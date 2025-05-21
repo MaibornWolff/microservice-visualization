@@ -1,15 +1,15 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import * as immer from 'immer'
-import { findFilesSafe } from '../../../utils/files/analysis'
-import { SystemPattern, NodePattern, EdgePattern, SearchTextLocation, NamePattern } from './model'
+import { findFilesSafe } from '../../../utils/files/analysis.js'
+import { SystemPattern, NodePattern, EdgePattern, SearchTextLocation, NamePattern } from './model.js'
 import { Logger } from '@nestjs/common'
-import { System } from '../../../model/ms'
+import { System } from '../../../model/ms.js'
 
 // tslint:disable-next-line
-import * as ms from '../../../model/ms'
+import * as ms from '../../../model/ms.js'
 
-import { Metadata } from '../../../model/core'
+import { Metadata } from '../../../model/core.js'
 
 /**
  * The PatternAnalyzer allows to derive a system from source code patterns defined by regular expressions.

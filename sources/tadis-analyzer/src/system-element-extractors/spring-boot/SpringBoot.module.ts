@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../config/Config.module'
-import { FeignClientAnnotationAnalyzer } from './FeignClientAnnotationAnalyzer'
+import { ConfigModule } from '../../config/Config.module.js'
+import { FeignClientAnnotationAnalyzer } from './FeignClientAnnotationAnalyzer.js'
 
 @Module({
   imports: [ConfigModule],

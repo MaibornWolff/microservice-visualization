@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import { System, MicroService } from '../../model/ms'
-import { ISystemAssembler } from './ISystemAssembler'
+import { System, MicroService } from '../../model/ms.js'
+import { ISystemAssembler } from './ISystemAssembler.js'
 
 @Injectable()
 export class SystemAssembler implements ISystemAssembler {

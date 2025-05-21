@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { KubernetesApiService } from '../api/api.service'
-import { ConfigService } from '../../../config/Config.service'
-import { EnvDefinitionFromPodDecorator } from './EnvDefinitionFromPodDecorator'
+import { KubernetesApiService } from '../api/api.service.js'
+import { ConfigService } from '../../../config/Config.service.js'
+import { EnvDefinitionFromPodDecorator } from './EnvDefinitionFromPodDecorator.js'
 
-import { body as testBody } from './testdata/api/pods.json'
-import { System } from '../../../model/ms'
+import testPods from './testdata/api/pods.json' with { type: "json" }
+import { System } from '../../../model/ms.js'
+
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe(EnvDefinitionFromPodDecorator.name, () => {
   let app: TestingModule
@@ -19,7 +21,7 @@ describe(EnvDefinitionFromPodDecorator.name, () => {
 
   it('transforms', async() => {
     const apiService = app.get<KubernetesApiService>(KubernetesApiService)
-    jest.spyOn(apiService, 'getPods').mockImplementation(async() => testBody)
+    apiService.getPods = async() => testPods.body
 
     const inputSystem = new System('test')
     inputSystem.addMicroService('test-microservice', { p: 1 })
@@ -27,9 +29,9 @@ describe(EnvDefinitionFromPodDecorator.name, () => {
     const envService = app.get<EnvDefinitionFromPodDecorator>(EnvDefinitionFromPodDecorator)
     const outputSystem = await envService.transform(inputSystem)
 
-    expect(outputSystem).not.toBeNull()
-    expect(outputSystem.nodes).toHaveLength(1)
-    expect(outputSystem.nodes[0].content.payload.env).toContainEqual({
+    expect(outputSystem).to.not.be.null
+    expect(outputSystem.nodes).to.have.lengthOf(1)
+    expect(outputSystem.nodes[0].content.payload.env).to.deep.include({
       name: 'CACHE_SIZE',
       value: '10000'
     })

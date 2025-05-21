@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common'
 
-import { System, SyncDataFlow, AsyncEventFlow } from '../ms'
-import { Node } from '../core'
-import * as v1 from './model'
+import { System, SyncDataFlow, AsyncEventFlow } from '../ms.js'
+import { Node } from '../core.js'
+import * as v1 from './model.js'
 
 const logger = new Logger('v1-adapter')
 

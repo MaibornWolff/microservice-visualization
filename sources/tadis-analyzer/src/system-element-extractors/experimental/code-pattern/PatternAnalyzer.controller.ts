@@ -8,10 +8,10 @@ import {
   Body
 } from '@nestjs/common'
 
-import { adaptToV1 } from '../../../model/v1-legacy/v1-adapter'
-import { convertCoreToTransportNode } from '../../../model/transport'
-import { PatternAnalyzerService } from './PatternAnalyzer.service'
-import { SystemPattern } from './model'
+import { adaptToV1 } from '../../../model/v1-legacy/v1-adapter.js'
+import { convertCoreToTransportNode } from '../../../model/transport.js'
+import { PatternAnalyzerService } from './PatternAnalyzer.service.js'
+import { SystemPattern } from './model.js'
 
 @Controller('pattern-analyzer')
 export class PatternAnalyzerController {

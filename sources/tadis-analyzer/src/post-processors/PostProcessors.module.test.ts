@@ -1,13 +1,13 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 
-import { System } from '../model/ms'
+import { System } from '../model/ms.js'
 import {
   PostProcessorsModule,
   SubSystemFromPayloadTransformer
-} from './PostProcessors.module'
+} from './PostProcessors.module.js'
 
-jest.mock('../config/Config.service')
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe(PostProcessorsModule.name, () => {
   let app: INestApplication

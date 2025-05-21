@@ -1,9 +1,9 @@
 import { Logger } from '@nestjs/common'
 
-import { Node, Content, Edge, Metadata } from './core'
+import { Node, Content, Edge, Metadata } from './core.js'
 
 // tslint:disable-next-line
-import * as ms from './ms'
+import * as ms from './ms.js'
 
 const logContext = 'core-typed'
 

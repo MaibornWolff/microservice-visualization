@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "declaration": true,
     "allowJs": false,
@@ -15,12 +15,10 @@
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": "./",
-    "types": [
-      "jest"
-    ]
+    "allowSyntheticDefaultImports": true
   },
   "lib": [
-    "es2018"
+    "es2024"
   ],
   "rootDirs": [
     "src",
@@ -34,5 +32,9 @@
     "node_modules",
     "temp",
     "build"
-  ]
+  ],
+  "ts-node": {
+    "files": true,
+    "esm": true
+  }
 }

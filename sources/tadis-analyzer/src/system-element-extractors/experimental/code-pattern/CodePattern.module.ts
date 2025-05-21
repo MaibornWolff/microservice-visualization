@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../../config/Config.module'
-import { PatternAnalyzerService } from './PatternAnalyzer.service'
-import { PatternAnalyzerController } from './PatternAnalyzer.controller'
+import { ConfigModule } from '../../../config/Config.module.js'
+import { PatternAnalyzerService } from './PatternAnalyzer.service.js'
+import { PatternAnalyzerController } from './PatternAnalyzer.controller.js'
 
 @Module({
   imports: [ConfigModule],

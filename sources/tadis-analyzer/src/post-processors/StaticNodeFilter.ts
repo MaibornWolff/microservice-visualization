@@ -1,8 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { uniq } = pkg;
 
-import { ConfigService } from '../config/Config.service'
-import { System } from '../model/ms'
+
+import { ConfigService } from '../config/Config.service.js'
+import { System } from '../model/ms.js'
 
 @Injectable()
 export class StaticNodeFilter {
@@ -41,7 +43,7 @@ export class StaticNodeFilter {
     system.content.metadata = {
       transformer: StaticNodeFilter.name,
       context: 'system.nodes',
-      info: _.uniq(nodesRemoved).join(', ')
+      info: uniq(nodesRemoved).join(', ')
     }
 
     return system

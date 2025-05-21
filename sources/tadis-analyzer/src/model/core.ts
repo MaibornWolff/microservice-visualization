@@ -1,4 +1,5 @@
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { union, flatten } = pkg;
 
 export class Node {
   public nodes: Node[]
@@ -82,7 +83,7 @@ export class Node {
   }
 
   getAllEdges(): Edge[] {
-    return _.union(this.edges, _.flatten(this.nodes.map(node => node.edges)))
+    return union(this.edges, flatten(this.nodes.map(node => node.edges)))
   }
 
   hasNodes(): boolean {

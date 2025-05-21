@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../config/Config.module'
-import { StaticNodeFilter } from './StaticNodeFilter'
-import { SubSystemFromPayloadTransformer } from './SubSystemFromPayloadTransformer'
-import { MicroserviceWithOutgoingExchangeMerger } from './MicroserviceWithOutgoingExchangeMerger'
+import { ConfigModule } from '../config/Config.module.js'
+import { StaticNodeFilter } from './StaticNodeFilter.js'
+import { SubSystemFromPayloadTransformer } from './SubSystemFromPayloadTransformer.js'
+import { MicroserviceWithOutgoingExchangeMerger } from './MicroserviceWithOutgoingExchangeMerger.js'
 
 @Module({
   imports: [ConfigModule],

@@ -1,10 +1,10 @@
 import { Get, Controller, Logger, Query } from '@nestjs/common'
 
-import { GitStorageService } from '../../git/GitStorage.service'
+import { GitStorageService } from '../../git/GitStorage.service.js'
 
-import { adaptToV1 } from '../../model/v1-legacy/v1-adapter'
-import { convertCoreToTransportNode } from '../../model/transport'
-import { SystemAssembler } from './SystemAssembler.service'
+import { adaptToV1 } from '../../model/v1-legacy/v1-adapter.js'
+import { convertCoreToTransportNode } from '../../model/transport.js'
+import { SystemAssembler } from './SystemAssembler.service.js'
 
 @Controller()
 export class SystemAssemblerController {

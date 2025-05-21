@@ -1,14 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { describe, it, beforeAll, expect } from 'vitest'
 
-import { ConfigService } from '../../../config/Config.service'
+import { ConfigService } from '../../../config/Config.service.js'
 
-import { System, MessageQueue } from '../../../model/ms'
-import { RabbitMqBindingsFromApiAnalyzer } from './RabbitMqBindingsFromApiAnalyzer'
-import { RabbitMqManagementApiService } from '../api/api.service'
+import { System, MessageQueue } from '../../../model/ms.js'
+import { RabbitMqBindingsFromApiAnalyzer } from './RabbitMqBindingsFromApiAnalyzer.js'
+import { RabbitMqManagementApiService } from '../api/api.service.js'
 
-import testQueues from './testdata/api/queues.json'
-import testBindings from './testdata/api/bindings.json'
-import { verifyEachContentHasTransformer } from '../../../test/verifiers'
+import testQueues from './testdata/api/queues.json' with { type: "json" }
+import testBindings from './testdata/api/bindings.json' with { type: "json" }
+import { verifyEachContentHasTransformer } from '../../../test/verifiers.js'
 import { HttpModule } from '@nestjs/axios'
 
 describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
@@ -30,50 +31,46 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const apiService = app.get<RabbitMqManagementApiService>(
       RabbitMqManagementApiService
     )
-    jest
-      .spyOn(apiService, 'getQueues')
-      .mockImplementation(async () => testQueues)
-    jest
-      .spyOn(apiService, 'getBindings')
-      .mockImplementation(async () => testBindings)
+    apiService.getQueues = async () => testQueues
+    apiService.getBindings = async () => testBindings
 
     const addExchangesFormSourceStep = app.get<RabbitMqBindingsFromApiAnalyzer>(
       RabbitMqBindingsFromApiAnalyzer
     )
 
     const inputSystem = new System('test')
-    inputSystem.addMicroService('receiver-service')
+    inputSystem.addMicroService('receiver-service', {}, {context: "test", transformer: RabbitMqBindingsFromApiAnalyzer.name})
 
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem).not.toBeNull()
+    expect(outputSystem).to.not.be.null
 
-    expect(outputSystem.getMicroServices()).toHaveLength(1)
-    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
+    expect(outputSystem.getMicroServices()).to.have.lengthOf(1)
+    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
 
-    expect(outputSystem.getMicroServices()[0].getName()).toEqual(
+    expect(outputSystem.getMicroServices()[0].getName()).to.deep.equal(
       'receiver-service'
     )
-    expect(outputSystem.getMessageExchanges()[0].getName()).toEqual(
+    expect(outputSystem.getMessageExchanges()[0].getName()).to.deep.equal(
       'source-exchange-1'
     )
-    expect(outputSystem.getMessageExchanges()[1].getName()).toEqual(
+    expect(outputSystem.getMessageExchanges()[1].getName()).to.deep.equal(
       'source-exchange-2'
     )
 
-    expect(outputSystem.getAsyncEventFlows()).toHaveLength(2)
+    expect(outputSystem.getAsyncEventFlows()).to.have.lengthOf(2)
 
-    expect(outputSystem.getAsyncEventFlows()[0].source.id).toEqual(
+    expect(outputSystem.getAsyncEventFlows()[0].source.id).to.deep.equal(
       outputSystem.getMessageExchanges()[0].id
     )
-    expect(outputSystem.getAsyncEventFlows()[0].target.id).toEqual(
+    expect(outputSystem.getAsyncEventFlows()[0].target.id).to.deep.equal(
       outputSystem.getMicroServices()[0].id
     )
 
-    expect(outputSystem.getAsyncEventFlows()[1].source.id).toEqual(
+    expect(outputSystem.getAsyncEventFlows()[1].source.id).to.deep.equal(
       outputSystem.getMessageExchanges()[1].id
     )
-    expect(outputSystem.getAsyncEventFlows()[1].target.id).toEqual(
+    expect(outputSystem.getAsyncEventFlows()[1].target.id).to.deep.equal(
       outputSystem.getMicroServices()[0].id
     )
 
@@ -87,12 +84,8 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const apiService = app.get<RabbitMqManagementApiService>(
       RabbitMqManagementApiService
     )
-    jest
-      .spyOn(apiService, 'getQueues')
-      .mockImplementation(async () => testQueues)
-    jest
-      .spyOn(apiService, 'getBindings')
-      .mockImplementation(async () => testBindings)
+    apiService.getQueues = async () => testQueues
+    apiService.getBindings = async () => testBindings
 
     const addExchangesFormSourceStep = app.get<RabbitMqBindingsFromApiAnalyzer>(
       RabbitMqBindingsFromApiAnalyzer
@@ -101,21 +94,21 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const inputSystem = new System('test')
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem.getMicroServices()).toHaveLength(0)
-    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
+    expect(outputSystem.getMicroServices()).to.have.lengthOf(0)
+    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
 
     const queueNode = outputSystem.nodes.find(
       (node) => node.content.type === MessageQueue.name
     )
-    expect(queueNode).toBeDefined()
-    expect(queueNode.getName()).toEqual(
+    expect(queueNode).to.not.be.undefined
+    expect(queueNode.getName()).to.deep.equal(
       'receiver-service.routingKey.publish.update'
     )
 
-    expect(outputSystem.getAsyncEventFlows()[0].source.id).toEqual(
+    expect(outputSystem.getAsyncEventFlows()[0].source.id).to.deep.equal(
       outputSystem.getMessageExchanges()[0].id
     )
-    expect(outputSystem.getAsyncEventFlows()[0].target.id).toEqual(queueNode.id)
+    expect(outputSystem.getAsyncEventFlows()[0].target.id).to.deep.equal(queueNode.id)
 
     verifyEachContentHasTransformer(
       outputSystem,
@@ -127,19 +120,19 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const apiService = app.get<RabbitMqManagementApiService>(
       RabbitMqManagementApiService
     )
-    jest.spyOn(apiService, 'getQueues').mockImplementation(async () => [
+    apiService.getQueues = async () => [
       {
         name: 'no-service-prefix'
       }
-    ])
-    jest.spyOn(apiService, 'getBindings').mockImplementation(async () => [
+    ]
+    apiService.getBindings = async () => [
       {
         source: 'source-exchange-1',
         vhost: '/',
         destination: 'no-service-prefix',
         destination_type: 'queue'
       }
-    ])
+    ]
 
     const addExchangesFormSourceStep = app.get<RabbitMqBindingsFromApiAnalyzer>(
       RabbitMqBindingsFromApiAnalyzer
@@ -148,14 +141,14 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const inputSystem = new System('test')
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem.getMicroServices()).toHaveLength(0)
-    expect(outputSystem.getMessageExchanges()).toHaveLength(1)
+    expect(outputSystem.getMicroServices()).to.have.lengthOf(0)
+    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(1)
 
     const queueNode = outputSystem.nodes.find(
       (node) => node.content.type === MessageQueue.name
     )
-    expect(queueNode).toBeDefined()
-    expect(queueNode.getName()).toEqual('no-service-prefix')
+    expect(queueNode).to.not.be.undefined
+    expect(queueNode.getName()).to.deep.equal('no-service-prefix')
 
     verifyEachContentHasTransformer(
       outputSystem,
@@ -167,10 +160,8 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const apiService = app.get<RabbitMqManagementApiService>(
       RabbitMqManagementApiService
     )
-    jest
-      .spyOn(apiService, 'getQueues')
-      .mockImplementation(async () => testQueues)
-    jest.spyOn(apiService, 'getBindings').mockImplementation(async () => [
+    apiService.getQueues = async () => testQueues
+    apiService.getBindings = async () => [
       {
         source: '',
         vhost: '/',
@@ -180,7 +171,7 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
         arguments: {},
         properties_key: testQueues[0].name
       }
-    ])
+    ]
 
     const addExchangesFormSourceStep = app.get<RabbitMqBindingsFromApiAnalyzer>(
       RabbitMqBindingsFromApiAnalyzer
@@ -190,9 +181,9 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
       new System('test')
     )
 
-    expect(outputSystem).not.toBeNull()
+    expect(outputSystem).to.not.be.null
 
-    expect(outputSystem.nodes).toHaveLength(0)
-    expect(outputSystem.edges).toHaveLength(0)
+    expect(outputSystem.nodes).to.have.lengthOf(0)
+    expect(outputSystem.edges).to.have.lengthOf(0)
   })
 })

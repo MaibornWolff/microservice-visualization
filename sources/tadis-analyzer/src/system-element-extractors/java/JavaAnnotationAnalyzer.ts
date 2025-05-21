@@ -4,14 +4,14 @@ import {
   findFiles,
   getServiceNameFromPath,
   isNoSourceOfThisProject
-} from '../../utils/files/analysis'
+} from '../../utils/files/analysis.js'
 
-import { ConfigService } from '../../config/Config.service'
-import { System, MicroService } from '../../model/ms'
+import { ConfigService } from '../../config/Config.service.js'
+import { System, MicroService } from '../../model/ms.js'
 
 // tslint:disable-next-line
-import * as ms from '../../model/ms'
-import { Metadata } from 'src/model/core'
+import * as ms from '../../model/ms.js'
+import { Metadata } from 'src/model/core.js'
 
 const logger = new Logger('AnnotationAnalyzer')
 
