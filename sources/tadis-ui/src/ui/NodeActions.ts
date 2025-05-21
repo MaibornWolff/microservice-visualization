@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 
-import { Node } from '../domain/model'
-import { SystemRenderer } from '../SystemRenderer'
-import { NodeFocusser } from '../domain/NodeFocusser'
-import { GraphService } from '../domain/service'
+import { Node } from '../domain/model.js'
+import { SystemRenderer } from '../SystemRenderer.js'
+import { NodeFocusser } from '../domain/NodeFocusser.js'
+import { GraphService } from '../domain/service.js'
 
 export class NodeActions {
   private nodeFocusser: NodeFocusser

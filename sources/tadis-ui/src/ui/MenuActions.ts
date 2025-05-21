@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
 
-import { SystemRenderer } from '../SystemRenderer'
-import { NodeFocusser } from '../domain/NodeFocusser'
-import { NodeCollapser } from '../domain/NodeCollapser'
-import { GraphService } from '../domain/service'
-import { NodeActions } from '../ui/NodeActions'
-import { getBaseUrlInCurrentEnvironment } from '../appBaseUrl'
+import { SystemRenderer } from '../SystemRenderer.js'
+import { NodeFocusser } from '../domain/NodeFocusser.js'
+import { NodeCollapser } from '../domain/NodeCollapser.js'
+import { GraphService } from '../domain/service.js'
+import { NodeActions } from '../ui/NodeActions.js'
+import { getBaseUrlInCurrentEnvironment } from '../appBaseUrl.js'
 
 export class MenuActions {
   private nodeFocusser: NodeFocusser

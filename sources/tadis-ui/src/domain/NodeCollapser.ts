@@ -1,4 +1,4 @@
-import { Node, Edge } from './model'
+import { Node, Edge } from './model.js'
 
 export class NodeCollapser {
 

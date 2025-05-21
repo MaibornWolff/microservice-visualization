@@ -1,15 +1,10 @@
-import * as d3Base from 'd3'
+import * as d3 from 'd3'
 import { graphviz } from 'd3-graphviz'
-
-import { Node } from './domain/model'
+import { Node } from './domain/model.js'
 import {
   SystemToDotConverter,
   Options as SystemToDotOptions
-} from './domain/systemToDot'
-
-// attach all d3 plugins to the d3 library
-// see https://www.giacomodebidda.com/how-to-import-d3-plugins-with-webpack/
-const d3 = Object.assign(d3Base, { graphviz })
+} from './domain/systemToDot.js'
 
 export class SystemRenderer {
   public static removeHeightFromSvg() {
@@ -38,8 +33,7 @@ export class SystemRenderer {
       options || this.defaultOptions
     )
 
-    d3.select('#graph')
-      .graphviz()
+    graphviz('#graph')
       .transition(transition)
       .width(window.innerWidth - 3 * 25)
       .height(window.innerHeight - 200)

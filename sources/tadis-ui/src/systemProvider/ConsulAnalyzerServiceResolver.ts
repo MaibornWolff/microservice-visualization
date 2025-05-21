@@ -4,13 +4,13 @@ export class ConsulAnalyzerServiceResolver {
 
   constructor(private consulBaseUrl: string,
     private systemProviderServiceName: string,
-    private systemProviderServiceEndpint: string) {}
+    private systemProviderServiceEndpoint: string) {}
 
   async resolveAnalyzerServiceUrl(): Promise<string> {
     const urlToService = await this.getUrlToServiceProvidingSystem()
     if (!urlToService) return null
 
-    return urlToService + this.systemProviderServiceEndpint
+    return urlToService + this.systemProviderServiceEndpoint
   }
 
   async getUrlToServiceProvidingSystem(): Promise<string> {

@@ -1,7 +1,7 @@
 import * as axios from 'axios'
-import * as NodeCache from 'node-cache'
-import { ConsulAnalyzerServiceResolver } from './ConsulAnalyzerServiceResolver'
-import { INode } from '../domain/model'
+import NodeCache from 'node-cache'
+import { ConsulAnalyzerServiceResolver } from './ConsulAnalyzerServiceResolver.js'
+import { INode } from '../domain/model.js'
 
 export class SystemFetcher {
 

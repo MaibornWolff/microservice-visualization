@@ -1,7 +1,7 @@
-import { Node } from './model'
-import { NodeFocusser } from './NodeFocusser'
-import { NodeCollapser } from './NodeCollapser'
-import { GraphService } from './service'
+import { Node } from './model.js'
+import { NodeFocusser } from './NodeFocusser.js'
+import { NodeCollapser } from './NodeCollapser.js'
+import { GraphService } from './service.js'
 
 export class GraphInteractions {
   static focusNode(graph: Node, focusNodeId: string): Node {

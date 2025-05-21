@@ -1,6 +1,6 @@
 import 'tachyons/css/tachyons.css'
 import './html/style.css'
 
-import(/* webpackChunkName: "SystemViewer" */ './SystemViewer').then(SystemViewer => {
+import('./SystemViewer.js').then(SystemViewer => {
   SystemViewer.load()
 })

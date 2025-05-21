@@ -1,4 +1,4 @@
-import { INode } from '../domain/model'
+import { INode } from '../domain/model.js'
 
 export const largeDemoSystem: INode = {
   'id': '0',
