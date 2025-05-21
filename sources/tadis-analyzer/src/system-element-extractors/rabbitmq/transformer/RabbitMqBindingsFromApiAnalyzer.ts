@@ -1,10 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { flatMap } = pkg;
 
-import { ConfigService } from '../../../config/Config.service'
-import { System, AsyncEventFlow, MessageQueue } from '../../../model/ms'
-import { RabbitMqManagementApiService } from '../api/api.service'
-import { Metadata, Node } from '../../../model/core'
+
+import { ConfigService } from '../../../config/Config.service.js'
+import { System, AsyncEventFlow, MessageQueue } from '../../../model/ms.js'
+import { RabbitMqManagementApiService } from '../api/api.service.js'
+import { Metadata, Node } from '../../../model/core.js'
 
 // this analyzer assumes that a queue starts with the name of the microservice
 // which the queue belongs to. after the microservice name the delimiter below follows.
@@ -29,7 +31,7 @@ export class RabbitMqBindingsFromApiAnalyzer {
 
     const bindingsPromises: Promise<Binding[]>[] = queueNames.map(queue => this.getBindings(queue))
     const bindings: Binding[][] = await Promise.all(bindingsPromises)
-    const allBindings: Binding[] = _.flatMap(bindings)
+    const allBindings: Binding[] = flatMap(bindings)
 
     this.addEdgesFromBindings(system, allBindings)
 

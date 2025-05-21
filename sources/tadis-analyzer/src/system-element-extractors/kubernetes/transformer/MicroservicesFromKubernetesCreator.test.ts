@@ -1,18 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { describe, it, beforeAll, expect } from 'vitest'
 
-import { KubernetesApiService } from '../api/api.service'
-import { ConfigService } from '../../../config/Config.service'
-import { MicroservicesFromKubernetesCreator } from './MicroservicesFromKubernetesCreator'
+import { KubernetesApiService } from '../api/api.service.js'
+import { ConfigService } from '../../../config/Config.service.js'
+import { MicroservicesFromKubernetesCreator } from './MicroservicesFromKubernetesCreator.js'
 
-import { body as testBodyServices } from './testdata/api/services.json'
-import { body as testBodyPods } from './testdata/api/pods.json'
-import { verifyEachContentHasTransformer } from '../../../test/verifiers'
-import { System } from '../../../model/ms'
+import testServices from './testdata/api/services.json' with { type: "json" }
+import testPods from './testdata/api/pods.json' with { type: "json" }
+import { verifyEachContentHasTransformer } from '../../../test/verifiers.js'
+import { System } from '../../../model/ms.js'
 
 describe(MicroservicesFromKubernetesCreator.name, () => {
   let app: TestingModule
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [],
       providers: [
@@ -25,20 +26,20 @@ describe(MicroservicesFromKubernetesCreator.name, () => {
 
   it('transforms', async() => {
     const configService = app.get<ConfigService>(ConfigService)
-    jest.spyOn(configService, 'getKubernetesNamespace').mockImplementation(() => 'test-ns')
+    configService.getKubernetesNamespace = () => 'test-ns'
 
     const apiService = app.get<KubernetesApiService>(KubernetesApiService)
-    jest.spyOn(apiService, 'getPods').mockImplementation(async() => testBodyPods)
-    jest.spyOn(apiService, 'getServices').mockImplementation(async() => testBodyServices)
+    apiService.getPods = async() => testPods.body
+    apiService.getServices = async() => testServices.body
 
     const kubernetesService = app.get<MicroservicesFromKubernetesCreator>(MicroservicesFromKubernetesCreator)
 
     const system = await kubernetesService.transform(new System(''))
 
     expect(system).not.toBeNull()
-    expect(system.getPayload().name).toEqual('test-ns')
+    expect(system.getPayload().name).toBe('test-ns')
     expect(system.nodes).toHaveLength(1)
-    expect(system.nodes[0].content.payload.name).toEqual('test-microservice')
+    expect(system.nodes[0].content.payload.name).toBe('test-microservice')
 
     verifyEachContentHasTransformer(system, MicroservicesFromKubernetesCreator.name)
   })

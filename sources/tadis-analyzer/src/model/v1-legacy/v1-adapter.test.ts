@@ -1,8 +1,8 @@
-import { Test } from '@nestjs/testing'
+import { expect, describe, it } from 'vitest'
 
-import { System, AsyncEventFlow, SyncDataFlow } from '../ms'
-import { adaptToV1 } from './v1-adapter'
-import { Metadata } from '../core'
+import { System, AsyncEventFlow, SyncDataFlow } from '../ms.js'
+import { adaptToV1 } from './v1-adapter.js'
+import { Metadata } from '../core.js'
 
 describe('adaptToV1', () => {
 
@@ -22,35 +22,35 @@ describe('adaptToV1', () => {
 
     const adaptedSystem = adaptToV1(system)
 
-    expect(adaptedSystem.getName()).toEqual(system.getPayload().name)
+    expect(adaptedSystem.getName()).to.deep.equal(system.getPayload().name)
 
-    expect(adaptedSystem.getNodes()).toHaveLength(3)
+    expect(adaptedSystem.getNodes()).to.have.lengthOf(3)
 
     const adaptedServiceA = adaptedSystem.getNodes().find(node => node.getName() === 'A')
-    expect(adaptedServiceA).toBeDefined()
-    expect(adaptedServiceA.type).toEqual('MicroService')
+    expect(adaptedServiceA).to.not.be.undefined
+    expect(adaptedServiceA.type).to.deep.equal('MicroService')
 
     const adaptedExchangeB = adaptedSystem.getNodes().find(node => node.getName() === 'B')
-    expect(adaptedExchangeB).toBeDefined()
-    expect(adaptedExchangeB.type).toEqual('MessageExchange')
+    expect(adaptedExchangeB).to.not.be.undefined
+    expect(adaptedExchangeB.type).to.deep.equal('MessageExchange')
 
-    expect(adaptedSystem.getEdges()).toHaveLength(2)
+    expect(adaptedSystem.getEdges()).to.have.lengthOf(2)
     const abEdge = adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === exchangeB.id)
-    expect(abEdge).toBeDefined()
-    expect(abEdge.type).toEqual('AsyncInfoFlow')
+    expect(abEdge).to.not.be.undefined
+    expect(abEdge.type).to.deep.equal('AsyncInfoFlow')
 
-    expect(adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === serviceC.id)).toBeDefined()
+    expect(adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === serviceC.id)).to.not.be.undefined
 
     const adaptedSubSystem = adaptedSystem.getNodes().find(node => node.getName() === 'sub-system')
-    expect(adaptedSubSystem).toBeDefined()
-    expect(adaptedSubSystem.getNodes()).toHaveLength(2)
-    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'C')).toBeDefined()
-    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'D')).toBeDefined()
+    expect(adaptedSubSystem).to.not.be.undefined
+    expect(adaptedSubSystem.getNodes()).to.have.lengthOf(2)
+    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'C')).to.not.be.undefined
+    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'D')).to.not.be.undefined
 
-    expect(adaptedSubSystem.getEdges()).toHaveLength(1)
+    expect(adaptedSubSystem.getEdges()).to.have.lengthOf(1)
     const cdEdge = adaptedSubSystem.getEdges().find(edge => edge.sourceId === serviceC.id && edge.targetId === serviceD.id)
-    expect(cdEdge).toBeDefined()
-    expect(cdEdge.type).toEqual('SyncInfoFlow')
+    expect(cdEdge).to.not.be.undefined
+    expect(cdEdge.type).to.deep.equal('SyncInfoFlow')
   })
 
   it('puts payload fields and metadata into v1-properties', async() => {
@@ -70,16 +70,16 @@ describe('adaptToV1', () => {
 
     const adaptedSystem = adaptToV1(system)
 
-    expect(adaptedSystem.getNodes()).toHaveLength(2)
-    expect(adaptedSystem.getNodes().find(node => node.getName() === 'A').getProp('x', null)).toEqual('1')
-    expect(adaptedSystem.getNodes().find(node => node.getName() === 'B').getProp('y', null)).toEqual('2')
+    expect(adaptedSystem.getNodes()).to.have.lengthOf(2)
+    expect(adaptedSystem.getNodes().find(node => node.getName() === 'A').getProp('x', null)).to.equal('1')
+    expect(adaptedSystem.getNodes().find(node => node.getName() === 'B').getProp('y', null)).to.equal('2')
 
     expect(adaptedSystem.getNodes()
       .find(node => node.getName() === 'A')
       .getProp('metadata', null)
-    ).toEqual(metadata)
+    ).to.equal(metadata)
 
-    expect(adaptedSystem.getEdges()[0].getProperties().x).toEqual('1')
-    expect(adaptedSystem.getEdges()[0].getProperties().metadata).toEqual(metadata)
+    expect(adaptedSystem.getEdges()[0].getProperties().x).to.equal('1')
+    expect(adaptedSystem.getEdges()[0].getProperties().metadata).to.equal(metadata)
   })
 })

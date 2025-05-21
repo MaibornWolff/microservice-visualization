@@ -1,9 +1,15 @@
-import { System, AsyncEventFlow } from '../../../model/ms'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import { System, AsyncEventFlow } from '../../../model/ms.js'
+import { describe, it, beforeEach, expect } from 'vitest'
 
-import { verifyEachContentHasTransformer } from '../../../test/verifiers'
+import { verifyEachContentHasTransformer } from '../../../test/verifiers.js'
 
-import { PatternAnalyzer } from './PatternAnalyzer'
-import { SystemPattern, NodePattern, SearchTextLocation } from './model'
+import { PatternAnalyzer } from './PatternAnalyzer.js'
+import { SystemPattern, NodePattern, SearchTextLocation } from './model.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 describe('PatternAnalyzer.singeFile', () => {
     const sourceFolder = __dirname + '/testdata/single-file-analysis-project'
@@ -36,7 +42,7 @@ describe('PatternAnalyzer.singeFile', () => {
         const analyzer = new PatternAnalyzer(sourceFolder)
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
-        expect(outputSystem.findMicroService('service1')).toBeDefined()
+        expect(outputSystem.findMicroService('service1')).not.toBeUndefined()
     })
 
     it('ignores source files that dont match the precondition regexp', async () => {
@@ -98,11 +104,9 @@ describe('PatternAnalyzer.singeFile', () => {
         const analyzer = new PatternAnalyzer(sourceFolder)
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
-        expect(outputSystem.findMicroService('service1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('target-exchange-X')).toBeDefined()
-        expect(outputSystem.findMessageExchange('target-exchange-Y')).toBeDefined()
-
-        // TODO: are there better ways to test parts of objects to match in jest?
+        expect(outputSystem.findMicroService('service1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('target-exchange-X')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('target-exchange-Y')).not.toBeUndefined()
         expect(
             outputSystem.edges.find(
                 (edge) =>
@@ -110,13 +114,12 @@ describe('PatternAnalyzer.singeFile', () => {
                     edge.target.getName() === 'target-exchange-X' &&
                     edge.content?.type === AsyncEventFlow.name
             )
-        ).toBeDefined()
-
+        ).not.toBeUndefined()
         expect(
             outputSystem.edges.find(
                 (edge) => edge.source.getName() === 'service1' && edge.target.getName() === 'target-exchange-Y'
             )
-        ).toBeDefined()
+        ).not.toBeUndefined()
 
         verifyEachContentHasTransformer(outputSystem, PatternAnalyzer.name)
     })
@@ -140,7 +143,7 @@ describe('PatternAnalyzer.singeFile', () => {
         const analyzer = new PatternAnalyzer(sourceFolder)
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
-        expect(outputSystem.findMessageExchange('service1')).toBeDefined()
+        expect(outputSystem.findMessageExchange('service1')).not.toBeUndefined()
         expect(outputSystem.nodes.filter((node) => node.getName() === 'service1')).toHaveLength(1)
     })
 
@@ -176,21 +179,19 @@ describe('PatternAnalyzer.singeFile', () => {
         const analyzer = new PatternAnalyzer(sourceFolder)
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
-        expect(outputSystem.findMicroService('service1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('source-exchange-Y')).toBeDefined()
-        expect(outputSystem.findMessageExchange('target-exchange-Y')).toBeDefined()
-
+        expect(outputSystem.findMicroService('service1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('source-exchange-Y')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('target-exchange-Y')).not.toBeUndefined()
         expect(
             outputSystem.edges.find(
                 (edge) => edge.source.getName() === 'service1' && edge.target.getName() === 'target-exchange-Y'
             )
-        ).toBeDefined()
-
+        ).not.toBeUndefined()
         expect(
             outputSystem.edges.find(
                 (edge) => edge.source.getName() === 'source-exchange-Y' && edge.target.getName() === 'service1'
             )
-        ).toBeDefined()
+        ).not.toBeUndefined()
 
         verifyEachContentHasTransformer(outputSystem, PatternAnalyzer.name)
     })
@@ -209,7 +210,6 @@ describe('PatternAnalyzer.singeFile', () => {
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
         expect(outputSystem).not.toBeNull()
-
         expect(outputSystem.getMicroServices()).toHaveLength(0)
     })
 

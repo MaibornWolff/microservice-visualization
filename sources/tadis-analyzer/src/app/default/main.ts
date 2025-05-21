@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core'
 import { Logger } from '@nestjs/common'
 
-import { KubernetesRabbitMqAssemblerModule } from '../../system-assemblers/kubernetes-rabbitmq/KubernetesRabbitMqAssembler.module'
-import { ConfigService } from '../../config/Config.service'
+import { KubernetesRabbitMqAssemblerModule } from '../../system-assemblers/kubernetes-rabbitmq/KubernetesRabbitMqAssembler.module.js'
+import { ConfigService } from '../../config/Config.service.js'
 
 async function bootstrap() {
   const app = await NestFactory.create(KubernetesRabbitMqAssemblerModule)

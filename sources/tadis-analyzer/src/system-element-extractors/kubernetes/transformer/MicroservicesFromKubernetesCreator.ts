@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 
-import { ConfigService } from '../../../config/Config.service'
-import { System } from '../../../model/ms'
-import { KubernetesApiService } from '../api/api.service'
-import { Metadata } from 'src/model/core'
+import { ConfigService } from '../../../config/Config.service.js'
+import { System } from '../../../model/ms.js'
+import { KubernetesApiService } from '../api/api.service.js'
+import { Metadata } from 'src/model/core.js'
 
 @Injectable()
 export class MicroservicesFromKubernetesCreator {

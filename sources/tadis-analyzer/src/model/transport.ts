@@ -1,4 +1,4 @@
-import * as core from './core'
+import * as core from './core.js'
 
 export interface Node {
   id: string

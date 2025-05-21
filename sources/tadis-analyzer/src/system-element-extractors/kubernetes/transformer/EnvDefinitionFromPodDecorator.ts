@@ -1,9 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { has } = pkg;
 
-import { ConfigService } from '../../../config/Config.service'
-import { System } from '../../../model/ms'
-import { KubernetesApiService } from '../api/api.service'
+
+import { ConfigService } from '../../../config/Config.service.js'
+import { System } from '../../../model/ms.js'
+import { KubernetesApiService } from '../api/api.service.js'
 
 const logger = new Logger('add-kubernetes-env-vars')
 
@@ -27,9 +29,9 @@ export class EnvDefinitionFromPodDecorator {
     for (const pod of pods.items) {
       for (const service of system.getMicroServices()) {
         const serviceName = service.getPayload().name
-        if (_.has(pod, 'metadata.name')
+        if (has(pod, 'metadata.name')
           && pod.metadata.name.startsWith(serviceName + '-')
-          && _.has(pod, 'spec.containers')) {
+          && has(pod, 'spec.containers')) {
 
           logger.log('found pod for ' + pod.metadata.name + ' service ' + serviceName)
           // TODO: make this configurable or more flexible

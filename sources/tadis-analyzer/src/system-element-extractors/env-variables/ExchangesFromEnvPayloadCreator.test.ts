@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import '../../test/expect-extensions'
-import { verifyEachContentHasTransformer } from '../../test/verifiers'
+import { verifyEachContentHasTransformer } from '../../test/verifiers.js'
 
-import { ConfigService } from '../../config/Config.service'
-import { ExchangesFromEnvPayloadCreator } from './ExchangesFromEnvPayloadCreator'
+import { ConfigService } from '../../config/Config.service.js'
+import { ExchangesFromEnvPayloadCreator } from './ExchangesFromEnvPayloadCreator.js'
 
-import { System } from '../../model/ms'
+import { System } from '../../model/ms.js'
+
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe(ExchangesFromEnvPayloadCreator.name, () => {
   let app: TestingModule
@@ -20,7 +21,7 @@ describe(ExchangesFromEnvPayloadCreator.name, () => {
 
   it('transforms', async () => {
     const inputSystem = new System('test')
-    const service = inputSystem.addMicroService('test-microservice', { p: 1 })
+    const service = inputSystem.addMicroService('test-microservice', { p: 1 }, {context: "test", transformer: ExchangesFromEnvPayloadCreator.name})
     service.getPayload().env = [
       {
         name: 'OUTGOING_EXCHANGE',
@@ -45,39 +46,39 @@ describe(ExchangesFromEnvPayloadCreator.name, () => {
     )
     const outputSystem = await envExchangesService.transform(inputSystem)
 
-    expect(outputSystem).not.toBeNull()
-    expect(outputSystem.nodes).toHaveLength(3)
-    expect(outputSystem.getMicroServices()).toHaveLength(1)
-    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
+    expect(outputSystem).to.not.be.null
+    expect(outputSystem.nodes).to.have.lengthOf(3)
+    expect(outputSystem.getMicroServices()).to.have.lengthOf(1)
+    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
     expect(
       outputSystem.findMessageExchange('test-outgoing-exchange')
-    ).toBeDefined()
+    ).to.not.be.undefined
     expect(
       outputSystem.findMessageExchange('test-incoming-exchange').content
         ?.metadata?.transformer
-    ).toEqual(ExchangesFromEnvPayloadCreator.name)
+    ).to.equal(ExchangesFromEnvPayloadCreator.name)
 
     verifyEachContentHasTransformer(
       outputSystem,
       ExchangesFromEnvPayloadCreator.name
     )
 
-    expect(outputSystem.edges).toHaveLength(2)
+    expect(outputSystem.edges).to.have.lengthOf(2)
     expect(
       outputSystem.edges.filter((edge) => edge.content?.type !== undefined)
-    ).toHaveLength(2)
+    ).to.have.lengthOf(2)
 
-    expect(outputSystem.edges[0].source.id).toEqual(
+    expect(outputSystem.edges[0].source.id).to.equal(
       outputSystem.findMicroService('test-microservice').id
     )
-    expect(outputSystem.edges[0].target.id).toEqual(
+    expect(outputSystem.edges[0].target.id).to.equal(
       outputSystem.findMessageExchange('test-outgoing-exchange').id
     )
 
-    expect(outputSystem.edges[1].source.id).toEqual(
+    expect(outputSystem.edges[1].source.id).to.equal(
       outputSystem.findMessageExchange('test-incoming-exchange').id
     )
-    expect(outputSystem.edges[1].target.id).toEqual(
+    expect(outputSystem.edges[1].target.id).to.equal(
       outputSystem.findMicroService('test-microservice').id
     )
   })

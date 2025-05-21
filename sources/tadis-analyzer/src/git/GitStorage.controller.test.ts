@@ -1,18 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { GitStorageController } from './GitStorage.controller'
-import { GitStorageService } from './GitStorage.service'
-import { ConfigService } from '../config/Config.service'
+import { GitStorageController } from './GitStorage.controller.js'
+import { GitStorageService } from './GitStorage.service.js'
+import { ConfigService } from '../config/Config.service.js'
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe('SourceStorageController', () => {
   let app: TestingModule
 
   beforeAll(async () => {
     const configService = new ConfigService()
-    jest
-      .spyOn(configService, 'getSourceFolder')
-      .mockImplementation(
-        () => process.cwd() + '/src/git/testdata/source-folder'
-      )
+    configService.getSourceFolder = () => process.cwd() + '/src/git/testdata/source-folder'
 
     app = await Test.createTestingModule({
       controllers: [GitStorageController],

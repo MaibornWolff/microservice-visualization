@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { KubernetesApiService } from '../api/api.service'
-import { ConfigService } from '../../../config/Config.service'
+import { KubernetesApiService } from '../api/api.service.js'
+import { ConfigService } from '../../../config/Config.service.js'
 
-import { body as testBody } from './testdata/api/deployments.json'
-import { System } from '../../../model/ms'
-import { LabelsFromDeploymentDecorator } from './LabelsFromDeploymentDecorator'
+import testDeployments from './testdata/api/deployments.json' with { type: "json" }
+import { System } from '../../../model/ms.js'
+import { LabelsFromDeploymentDecorator } from './LabelsFromDeploymentDecorator.js'
+
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe(LabelsFromDeploymentDecorator.name, () => {
   let app: TestingModule
@@ -19,7 +21,7 @@ describe(LabelsFromDeploymentDecorator.name, () => {
 
   it('transforms', async() => {
     const apiService = app.get<KubernetesApiService>(KubernetesApiService)
-    jest.spyOn(apiService, 'getDeployments').mockImplementation(async() => testBody)
+    apiService.getDeployments = async() => testDeployments.body
 
     const inputSystem = new System('test')
     inputSystem.addMicroService('test-microservice', { p: 1 })
@@ -27,9 +29,9 @@ describe(LabelsFromDeploymentDecorator.name, () => {
     const addLabels = app.get<LabelsFromDeploymentDecorator>(LabelsFromDeploymentDecorator)
     const outputSystem = await addLabels.transform(inputSystem)
 
-    expect(outputSystem).not.toBeNull()
-    expect(outputSystem.nodes).toHaveLength(1)
-    expect(outputSystem.nodes[0].content.payload.labels).toBeDefined()
-    expect(outputSystem.nodes[0].content.payload.labels.cabinet).toEqual('test-cabinet')
+    expect(outputSystem).to.not.be.null
+    expect(outputSystem.nodes).to.have.lengthOf(1)
+    expect(outputSystem.nodes[0].content.payload.labels).to.not.be.undefined
+    expect(outputSystem.nodes[0].content.payload.labels.cabinet).to.equal('test-cabinet')
   })
 })

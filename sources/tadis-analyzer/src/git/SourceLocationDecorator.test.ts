@@ -1,10 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { SourceLocationDecorator } from './SourceLocationDecorator'
-import { GitStorageService } from './GitStorage.service'
-import { StorageStatus } from './GitStorage'
-import { System } from '../model/ms'
-import { ConfigService } from '../config/Config.service'
+import { describe, it, beforeAll, expect } from 'vitest'
+
+import { SourceLocationDecorator } from './SourceLocationDecorator.js'
+import { GitStorageService } from './GitStorage.service.js'
+import { StorageStatus } from './GitStorage.js'
+import { System } from '../model/ms.js'
+import { ConfigService } from '../config/Config.service.js'
 
 describe(SourceLocationDecorator.name, () => {
   let app: TestingModule
@@ -28,17 +30,12 @@ describe(SourceLocationDecorator.name, () => {
       }
     ]
     const gitStorage = app.get<GitStorageService>(GitStorageService)
-    const gitStorageSpy = jest.spyOn(gitStorage, 'getStorageStatus')
-    gitStorageSpy.mockImplementation(async () => testStorageStatus)
+    gitStorage.getStorageStatus = async () => testStorageStatus
 
     const decorator = app.get<SourceLocationDecorator>(SourceLocationDecorator)
     const system = await decorator.transform(inputSystem)
 
-    expect(
-      system.findMicroService('service1').getPayload().sourceLocation
-    ).toEqual('/source/service1')
-    expect(
-      system.findMicroService('service2').getPayload().sourceLocation
-    ).toEqual('')
+    expect(system.findMicroService('service1').getPayload().sourceLocation).toBe('/source/service1')
+    expect(system.findMicroService('service2').getPayload().sourceLocation).toBe('')
   })
 })

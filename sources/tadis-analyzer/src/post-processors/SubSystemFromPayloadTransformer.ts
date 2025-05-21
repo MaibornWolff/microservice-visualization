@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
 import * as _ from 'lodash'
 
-import { System } from '../model/ms'
-import { Node } from '../model/core'
+import { System } from '../model/ms.js'
+import { Node } from '../model/core.js'
 
 type mapNodeToSubSystemNameFunction = (node: Node) => string
 

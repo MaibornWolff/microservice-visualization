@@ -1,5 +1,5 @@
-import { TypedNode, TypedEdge } from './core-typed'
-import { Node, Metadata } from './core'
+import { TypedNode, TypedEdge } from './core-typed.js'
+import { Node, Metadata } from './core.js'
 
 /**
  * this model provides type-safe access to nodes in a microservice system.

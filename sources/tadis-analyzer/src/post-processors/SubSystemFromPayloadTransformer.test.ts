@@ -1,8 +1,7 @@
-import { SubSystemFromPayloadTransformer } from '../deprecated-modules/CommonTransformers.module'
-import { System, AsyncEventFlow } from '../model/ms'
-import { Node, Content } from '../model/core'
-
-jest.mock('../config/Config.service')
+import { SubSystemFromPayloadTransformer } from '../deprecated-modules/CommonTransformers.module.js'
+import { System, AsyncEventFlow } from '../model/ms.js'
+import { Node, Content } from '../model/core.js'
+import { describe, it, expect } from 'vitest'
 
 describe(SubSystemFromPayloadTransformer.name, () => {
   it('moves each microservice which defines a cabinet label to its sub-system', async () => {
@@ -73,7 +72,7 @@ describe(SubSystemFromPayloadTransformer.name, () => {
     expect(system.findNodeOfTypeWithName('T', 'A')).toBeDefined()
 
     const cabinetX = system.nodes.find((node) => node.getName() === 'X')
-    expect(cabinetX.nodes.find((node) => node.getName() === 'C'))
+    expect(cabinetX.nodes.find((node) => node.getName() === 'C')).toBeDefined()
     expect(cabinetX.edges[0].source.id).toEqual(serviceB.id)
     expect(cabinetX.edges[0].target.id).toEqual(nodeC.id)
   })

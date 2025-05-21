@@ -1,13 +1,19 @@
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import { describe, it, beforeAll, beforeEach, expect } from 'vitest'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { ConfigService } from '../../config/Config.service'
+import { ConfigService } from '../../config/Config.service.js'
 
-import { System, AsyncEventFlow } from '../../model/ms'
-import { verifyEachContentHasTransformer } from '../../test/verifiers'
+import { System, AsyncEventFlow } from '../../model/ms.js'
+import { verifyEachContentHasTransformer } from '../../test/verifiers.js'
 import {
   JavaAnnotationAnalyzer,
   ElementMapping
-} from './JavaAnnotationAnalyzer'
+} from './JavaAnnotationAnalyzer.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 describe(JavaAnnotationAnalyzer.name, () => {
   let app: TestingModule
@@ -23,9 +29,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
     }).compile()
 
     const config = app.get<ConfigService>(ConfigService)
-    jest
-      .spyOn(config, 'getSourceFolder')
-      .mockImplementation(() => __dirname + '/testdata/source-folder')
+    config.getSourceFolder = () => __dirname + '/testdata/source-folder'
   })
 
   const elementMappings: ElementMapping[] = [
@@ -45,7 +49,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
 
   it('creates an async info flow for multiple annotations in the same file', async () => {
     const inputSystem = new System('test')
-    inputSystem.addMicroService('service1')
+    inputSystem.addMicroService('service1', {}, {context: "test", transformer: JavaAnnotationAnalyzer.name})
 
     const transformer = app.get<JavaAnnotationAnalyzer>(JavaAnnotationAnalyzer)
     const outputSystem = await transformer.transform(
@@ -54,11 +58,10 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).toBeDefined()
-    expect(outputSystem.findMessageExchange('target-exchange-X')).toBeDefined()
-    expect(outputSystem.findMessageExchange('target-exchange-Y')).toBeDefined()
+    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
+    expect(outputSystem.findMessageExchange('target-exchange-X')).to.not.be.undefined
+    expect(outputSystem.findMessageExchange('target-exchange-Y')).to.not.be.undefined
 
-    // TODO: are there better ways to test parts of objects to match in jest?
     expect(
       outputSystem.edges.find(
         (edge) =>
@@ -66,7 +69,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.target.getName() === 'target-exchange-X' &&
           edge.content.type === AsyncEventFlow.name
       )
-    ).toBeDefined()
+    ).to.not.be.undefined
 
     expect(
       outputSystem.edges.find(
@@ -74,14 +77,14 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'service1' &&
           edge.target.getName() === 'target-exchange-Y'
       )
-    ).toBeDefined()
+    ).to.not.be.undefined
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })
 
   it('re-uses exchanges when they already exist', async () => {
     const inputSystem = new System('test')
-    inputSystem.addMicroService('service1')
+    inputSystem.addMicroService('service1', {}, {context: "test", transformer: JavaAnnotationAnalyzer.name})
     inputSystem.addMessageExchange('source-exchange-X')
 
     const transformer = app.get<JavaAnnotationAnalyzer>(JavaAnnotationAnalyzer)
@@ -91,12 +94,12 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).toBeDefined()
+    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
     expect(
       outputSystem.nodes.filter(
         (node) => node.getName() === 'source-exchange-X'
       )
-    ).toHaveLength(1)
+    ).to.have.lengthOf(1)
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })
@@ -111,13 +114,13 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).toBeUndefined()
-    expect(outputSystem.findMessageExchange('target-exchange')).toBeUndefined()
+    expect(outputSystem.findMicroService('service1')).to.be.undefined
+    expect(outputSystem.findMessageExchange('target-exchange')).to.be.undefined
   })
 
   it('can create nodes from multiple elements in the same annotation', async () => {
     const inputSystem = new System('test')
-    inputSystem.addMicroService('service1')
+    inputSystem.addMicroService('service1', {}, {context: "test", transformer: JavaAnnotationAnalyzer.name})
 
     const transformer = app.get<JavaAnnotationAnalyzer>(JavaAnnotationAnalyzer)
     const outputSystem = await transformer.transform(
@@ -126,9 +129,9 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).toBeDefined()
-    expect(outputSystem.findMessageExchange('source-exchange-X')).toBeDefined()
-    expect(outputSystem.findMessageExchange('target-exchange-X')).toBeDefined()
+    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
+    expect(outputSystem.findMessageExchange('source-exchange-X')).to.not.be.undefined
+    expect(outputSystem.findMessageExchange('target-exchange-X')).to.not.be.undefined
 
     expect(
       outputSystem.edges.find(
@@ -136,7 +139,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'service1' &&
           edge.target.getName() === 'target-exchange-X'
       )
-    ).toBeDefined()
+    ).to.not.be.undefined
 
     expect(
       outputSystem.edges.find(
@@ -144,7 +147,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'source-exchange-X' &&
           edge.target.getName() === 'service1'
       )
-    ).toBeDefined()
+    ).to.not.be.undefined
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })

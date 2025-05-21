@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { Logger } from '@nestjs/common'
 
-import { CodePatternModule } from '../../system-element-extractors/experimental/code-pattern/CodePattern.module'
+import { CodePatternModule } from '../../system-element-extractors/experimental/code-pattern/CodePattern.module.js'
 
 async function bootstrap() {
   const app = await NestFactory.create(CodePatternModule)

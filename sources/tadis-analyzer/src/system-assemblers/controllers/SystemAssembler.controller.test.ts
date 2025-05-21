@@ -2,10 +2,12 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 
-import { System, SyncDataFlow } from '../../model/ms'
-import { SystemAssemblerController } from './SystemAssembler.controller'
-import { SystemAssembler } from './SystemAssembler.service'
-import { SystemAssemblerModule } from './SystemAssembler.module'
+import { System, SyncDataFlow } from '../../model/ms.js'
+import { SystemAssemblerController } from './SystemAssembler.controller.js'
+import { SystemAssembler } from './SystemAssembler.service.js'
+import { SystemAssemblerModule } from './SystemAssembler.module.js'
+
+import { describe, it, beforeAll, expect } from 'vitest'
 
 describe(SystemAssemblerController.name, () => {
   let app: INestApplication
@@ -25,7 +27,7 @@ describe(SystemAssemblerController.name, () => {
     system.edges.push(new SyncDataFlow(serviceA, serviceB))
 
     const orchestrator = app.get<SystemAssembler>(SystemAssembler)
-    jest.spyOn(orchestrator, 'getSystem').mockImplementation(async () => system)
+    orchestrator.getSystem = async () => system
 
     return request(app.getHttpServer())
       .get('/system')
@@ -35,9 +37,9 @@ describe(SystemAssemblerController.name, () => {
 
         expect(result.nodes).toHaveLength(2)
 
-        expect(result.edges[0].sourceId).toBeDefined()
+        expect(result.edges[0].sourceId).not.toBeUndefined()
         expect(result.edges[0].source).toBeUndefined()
-        expect(result.edges[0].targetId).toBeDefined()
+        expect(result.edges[0].targetId).not.toBeUndefined()
         expect(result.edges[0].target).toBeUndefined()
       })
   })
@@ -45,7 +47,7 @@ describe(SystemAssemblerController.name, () => {
   it('collects the system and adapts it a v1 model', async () => {
     const system = new System('test')
     const orchestrator = app.get<SystemAssembler>(SystemAssembler)
-    jest.spyOn(orchestrator, 'getSystem').mockImplementation(async () => system)
+    orchestrator.getSystem = async () => system
 
     return request(app.getHttpServer())
       .get('/system?version=1')

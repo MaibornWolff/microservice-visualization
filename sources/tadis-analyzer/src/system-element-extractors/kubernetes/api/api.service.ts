@@ -15,8 +15,7 @@ export class KubernetesApiService {
 
   public async getServices(namespace: string): Promise<k8s.V1ServiceList> {
     try {
-      const response = await this.coreV1Api.listNamespacedService(namespace)
-      return response.body
+      return await this.coreV1Api.listNamespacedService({namespace: namespace})
     } catch (err) {
       throw new Error('Got invalid response from Kubernetes API: ' + err)
     }
@@ -24,8 +23,7 @@ export class KubernetesApiService {
 
   public async getPods(namespace: string): Promise<k8s.V1PodList> {
     try {
-      const response = await this.coreV1Api.listNamespacedPod(namespace)
-      return response.body
+      return await this.coreV1Api.listNamespacedPod({namespace: namespace})
     } catch (err) {
       throw new Error('Got invalid response from Kubernetes API: ' + err)
     }
@@ -33,8 +31,7 @@ export class KubernetesApiService {
 
   public async getDeployments(namespace: string): Promise<k8s.V1DeploymentList> {
     try {
-      const response = await this.appsV1Api.listNamespacedDeployment(namespace)
-      return response.body
+      return await this.appsV1Api.listNamespacedDeployment({namespace: namespace})
     } catch (err) {
       throw new Error('Got invalid response from Kubernetes API: ' + err)
     }

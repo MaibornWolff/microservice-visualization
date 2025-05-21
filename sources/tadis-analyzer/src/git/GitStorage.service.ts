@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import { ConfigService } from '../config/Config.service'
-import { GitStorage, StorageStatus } from './GitStorage'
+import { ConfigService } from '../config/Config.service.js'
+import { GitStorage, StorageStatus } from './GitStorage.js'
 
 @Injectable()
 export class GitStorageService {

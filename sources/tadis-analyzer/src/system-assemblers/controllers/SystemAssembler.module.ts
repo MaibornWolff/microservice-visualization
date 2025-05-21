@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../config/Config.module'
-import { SystemAssemblerController } from './SystemAssembler.controller'
-import { SystemAssembler } from './SystemAssembler.service'
-import { ISystemAssembler } from './ISystemAssembler'
-import { GitModule } from '../../git/Git.module'
+import { ConfigModule } from '../../config/Config.module.js'
+import { SystemAssemblerController } from './SystemAssembler.controller.js'
+import { SystemAssembler } from './SystemAssembler.service.js'
+import { ISystemAssembler } from './ISystemAssembler.js'
+import { GitModule } from '../../git/Git.module.js'
 
 @Module({
   imports: [ConfigModule, GitModule],

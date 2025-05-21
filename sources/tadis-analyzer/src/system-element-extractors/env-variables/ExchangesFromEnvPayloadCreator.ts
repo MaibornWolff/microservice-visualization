@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
 
-import { ConfigService } from '../../config/Config.service'
-import { System, AsyncEventFlow } from '../../model/ms'
-import { Metadata } from '../../model/core'
+import { ConfigService } from '../../config/Config.service.js'
+import { System, AsyncEventFlow } from '../../model/ms.js'
+import { Metadata } from '../../model/core.js'
 
 const exchangeEnvNameMustInclude = 'EXCHANGE'
 const outgoingEnvNameMustInclude = 'OUTGOING'

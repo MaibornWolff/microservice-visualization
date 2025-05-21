@@ -1,12 +1,5 @@
-jest.mock('dotenv', () => {
-  const actualDotenv = jest.requireActual('dotenv');
-  return {
-    ...actualDotenv,
-    config: () => ({})
-  }
-})
-
-import { ConfigService } from './Config.service'
+import { ConfigService } from './Config.service.js'
+import { describe, it, beforeEach, expect } from 'vitest'
 
 describe(ConfigService.name, () => {
 
@@ -19,8 +12,8 @@ describe(ConfigService.name, () => {
 
     process.env.PORT = '2'
     const config = new ConfigService()
-    expect(config.getPort()).toEqual(2)
-    expect(typeof config.getPort()).toEqual('number')
+    expect(config.getPort()).toBe(2)
+    expect(typeof config.getPort()).toBe('number')
   })
 
   // TODO: more tests needed here
