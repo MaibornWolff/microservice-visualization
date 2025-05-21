@@ -1,11 +1,9 @@
-import { describe, test } from 'mocha'
-import { expect } from 'chai'
-import { Node } from '../../src/domain/model'
-import { GraphService } from '../../src/domain/service'
+import { describe, it, expect } from 'vitest';
+import { Node } from '../../src/domain/model.js';
+import { GraphService } from '../../src/domain/service.js';
 
-describe('graph service functions', function() {
-
-  test('find nodes by id', () => {
+describe('graph service functions', () => {
+  it('find nodes by id', () => {
     const graph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -20,11 +18,11 @@ describe('graph service functions', function() {
     })
     const graphService = new GraphService(graph)
 
-    expect(graphService.findNode('a').id).to.eql('a')
-    expect(graphService.findNode('c').id).to.eql('c')
-  })
+    expect(graphService.findNode('a').id).toBe('a');
+    expect(graphService.findNode('c').id).toBe('c');
+  });
 
-  test('reduce node to certain nodes', () => {
+  it('reduce node to certain nodes', () => {
     const node: Node = Node.ofRawNode({
       id: 'a',
       nodes: [
@@ -48,7 +46,7 @@ describe('graph service functions', function() {
     const graphService = new GraphService(node)
 
     expect(graphService.reduceNodesRecursive(node, ['b', 'c']))
-      .to.eql(Node.ofRawNode({
+      .toEqual(Node.ofRawNode({
         id: 'a',
         nodes: [
           { id: 'b' },
@@ -57,10 +55,10 @@ describe('graph service functions', function() {
         edges: [
           { sourceId: 'b', targetId: 'c' }
         ]
-      }))
+      }));
 
     expect(graphService.reduceNodesRecursive(node, ['d', 'e']))
-      .to.eql(Node.ofRawNode({
+      .toEqual(Node.ofRawNode({
         id: 'a',
         nodes: [
           {
@@ -74,7 +72,6 @@ describe('graph service functions', function() {
             ]
           }
         ]
-      }))
-  })
-
-})
+      }));
+  });
+});

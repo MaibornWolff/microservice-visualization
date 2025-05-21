@@ -1,11 +1,9 @@
-import { describe, test } from 'mocha'
-import { expect } from 'chai'
-import { Node } from '~/domain/model'
-import { SecondLevelEdgesRemover } from '~/domain/SecondLevelEdgesRemover'
+import { describe, it, expect } from 'vitest';
+import { Node } from './model.js';
+import { SecondLevelEdgesRemover } from './SecondLevelEdgesRemover.js';
 
-describe('SecondLevelEdgesRemover', function() {
-
-  test('second level edges are removed', () => {
+describe('SecondLevelEdgesRemover', () => {
+  it('second level edges are removed', () => {
     const inputGraph: Node = Node.ofRawNode({
       id: 'test-graph',
       nodes: [
@@ -56,7 +54,6 @@ describe('SecondLevelEdgesRemover', function() {
     const edgesRemover = new SecondLevelEdgesRemover()
     const resultGraph = edgesRemover.transformer(inputGraph)
 
-    expect(resultGraph).to.eql(expectedGraph)
+    expect(resultGraph).toEqual(expectedGraph)
   })
-
 })

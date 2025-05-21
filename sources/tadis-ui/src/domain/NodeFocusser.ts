@@ -1,6 +1,8 @@
 import * as _ from 'lodash'
-import { Node } from './model'
-import { GraphService } from './service'
+import { Node } from './model.js'
+import { GraphService } from './service.js'
+import pkg from 'lodash';
+const { flatten, union } = pkg;
 
 export class NodeFocusser {
 
@@ -21,7 +23,7 @@ export class NodeFocusser {
 
     let remainingNeighourHoods = neighbourHoodLevel
     while (remainingNeighourHoods > 0) {
-      const newNeighbourNodeIds: string[] = _.flatten(neighbourNodeIds
+      const newNeighbourNodeIds: string[] = flatten(neighbourNodeIds
         .map(nodeId => this.graphService.getNeighbourNodeIds(nodeId)))
       newNeighbourNodeIds
         .forEach(nodeId => {
@@ -46,7 +48,7 @@ export class NodeFocusser {
       })
     }
 
-    const nodeIdsToKeep = _.union([ focusedNode.id ], neighbourNodeIds, allInnerNodeIds, additionalIds)
+    const nodeIdsToKeep = union([ focusedNode.id ], neighbourNodeIds, allInnerNodeIds, additionalIds)
 
     return this.graphService.reduce(nodeIdsToKeep)
   }

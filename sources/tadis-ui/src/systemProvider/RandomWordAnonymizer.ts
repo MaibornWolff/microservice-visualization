@@ -1,6 +1,6 @@
-import * as randomWord from 'random-word'
-import { Node } from '../domain/model'
-import { GraphService } from '../domain/service'
+import randomWord from 'random-word'
+import { Node } from '../domain/model.js'
+import { GraphService } from '../domain/service.js'
 
 export class RandomWordAnonymizer {
   private nameMapping = new Map()
@@ -13,7 +13,7 @@ export class RandomWordAnonymizer {
     })
   }
 
-  getNewNameCached(name) {
+  getNewNameCached(name: string) {
     const cachedNewName = this.nameMapping.get(name)
     if (cachedNewName) {
       return cachedNewName
@@ -24,7 +24,7 @@ export class RandomWordAnonymizer {
     }
   }
 
-  getNewName(name) {
+  getNewName(name: string) {
     const newName = randomWord()
     console.log('replacing name ' + name + ' by ' + newName)
 

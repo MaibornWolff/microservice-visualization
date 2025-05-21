@@ -6,8 +6,8 @@ COPY *.json ./
 RUN npm ci
 
 COPY *.js .
+COPY *.ts .
 COPY src ./src/
-COPY test ./test/
 
 RUN npm run test && npm run build
 

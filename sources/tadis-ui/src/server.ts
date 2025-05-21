@@ -1,26 +1,24 @@
-import * as express from 'express'
+import express from 'express';
 import * as path from 'path'
 import * as dotenv from 'dotenv'
-import * as envYaml from './envYamlString'
+import * as envYaml from './envYamlString.js'
 import * as Viz from '@viz-js/viz';
 
-import { appBaseUrl } from './appBaseUrl'
-import { SystemProvider } from './systemProvider/SystemProvider'
-import { SystemFetcher } from './systemProvider/SystemFetcher'
-import { ConsulAnalyzerServiceResolver } from './systemProvider/ConsulAnalyzerServiceResolver'
-import { SystemToDotConverter, Options as ConverterOptions } from './domain/systemToDot'
-import { Node } from './domain/model'
+import { appBaseUrl } from './appBaseUrl.js'
+import { SystemProvider } from './systemProvider/SystemProvider.js'
+import { SystemFetcher } from './systemProvider/SystemFetcher.js'
+import { ConsulAnalyzerServiceResolver } from './systemProvider/ConsulAnalyzerServiceResolver.js'
+import { SystemToDotConverter, Options as ConverterOptions } from './domain/systemToDot.js'
+import { Node } from './domain/model.js'
 
 dotenv.config()
 envYaml.config()
 
 const app = express()
 
-const htmlDir = path.join(process.cwd(), 'src', 'html')
-const bundleDir = path.join(process.cwd(), 'build', 'bundle')
+const htmlDir = path.join(process.cwd(), 'build', 'html')
 
 app.use(`${appBaseUrl}/html`, express.static(htmlDir))
-app.use(`${appBaseUrl}/html`, express.static(bundleDir))
 
 if (isProduction()) {
   console.log('running in production mode')

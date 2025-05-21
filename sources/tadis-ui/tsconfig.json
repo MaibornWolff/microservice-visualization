@@ -1,36 +1,32 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
-        "moduleResolution": "node",
-        "downlevelIteration": true,
-        "allowJs": true,
-        "sourceMap": true,
-        "outDir": "build",
-        "rootDirs": [
-            "src",
-            "test"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "~/*": [
-                "src/*"
-            ]
-        },
-        "lib": [
-            "es2015",
-            "es2016",
-            "dom",
-            "dom.iterable",
-            "es2015.promise"
-        ],
-        "types": [
-            "mocha"
-        ]
-    },
-    "exclude": [
-        "node_modules",
-        "**/*.js",
-        "build"
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2024",
+    "moduleResolution": "bundler",
+    "downlevelIteration": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "rootDirs": [
+      "src"
+    ],
+    "baseUrl": ".",
+    "lib": [
+      "es2024",
+      "dom",
+      "dom.iterable",
+      "ESNext.Disposable"
+    ],
+    "types": [
+      "node",
+      "vitest"
     ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.js",
+    "build"
+  ]
 }

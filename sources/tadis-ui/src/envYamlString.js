@@ -1,8 +1,8 @@
 // taken from https://github.com/piranna/env-yaml/blob/patch-1/lib/index.js
 
-const {readFileSync} = require('fs')
-const {resolve} = require('path')
-const {load} = require('js-yaml')
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
+import { load } from 'js-yaml'
 
 function loadIntoEnv (parsed) {
   const {env} = process
@@ -29,5 +29,7 @@ function config ({encoding = 'utf8', intoEnv = true, path} = {}) {
   }
 }
 
-exports.config = config
-exports.load = config
+const _config = config
+export { _config as config }
+const _load = config
+export { _load as load }

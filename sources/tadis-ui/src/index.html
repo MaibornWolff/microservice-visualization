@@ -2,7 +2,8 @@
 
 <head>
     <title id="head-system-title">System &lt;loading&gt;</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="html/logo.png">
+    <link rel="stylesheet" href="html/style.css">
 </head>
 
 <body>
@@ -105,7 +106,7 @@
         <div id="content" class="mw100">
             <div id="loadSpinner" class="vh-75 w-100 dt">
                 <div class="dtc tc v-mid bg-white">
-                    <img src="spinner.svg" width="200" alt="loading">
+                    <img src="html/spinner.svg" width="200" alt="loading">
                 </div>
             </div>
             <div id="graphBox" class="fl pa4" style="display:none;">
@@ -116,8 +117,7 @@
         </div>
     </div>
 
-    <script src="main.bundle.js"></script>
-    <script src="SystemViewer.chunk.js"></script>
+    <script type="module" src="viewer.ts"></script>
 </body>
 
 </html>
