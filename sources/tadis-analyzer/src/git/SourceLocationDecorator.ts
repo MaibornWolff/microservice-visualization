@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import { GitStorageService } from './GitStorage.service'
-import { System } from '../model/ms'
+import { GitStorageService } from './GitStorage.service.js'
+import { System } from '../model/ms.js'
 
 /**
  * Decorates each microservice of the system for which source code was stored.

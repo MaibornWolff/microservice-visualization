@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../../config/Config.module'
-import { SourceCodeAnalysisModule } from '../../deprecated-modules/SourceCodeAnalysis.module'
+import { ConfigModule } from '../../config/Config.module.js'
 import {
   JavaAnnotationAnalyzer,
   ElementMapping
-} from './JavaAnnotationAnalyzer'
-import { GitModule } from '../../git/Git.module'
+} from './JavaAnnotationAnalyzer.js'
+import { GitModule } from '../../git/Git.module.js'
 
 @Module({
   imports: [ConfigModule, GitModule],

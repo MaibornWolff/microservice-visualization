@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 
-import { System, MicroService } from '../../model/ms'
-import { SourceLocationDecorator } from '../../git/SourceLocationDecorator'
-import { ISystemAssembler } from '../controllers/ISystemAssembler'
-import { RabbitMqBindingsFromApiAnalyzer } from '../../system-element-extractors/rabbitmq/RabbitMq.module'
-import { MicroservicesFromKubernetesCreator } from '../../system-element-extractors/kubernetes/Kubernetes.module'
+import { System, MicroService } from '../../model/ms.js'
+import { SourceLocationDecorator } from '../../git/SourceLocationDecorator.js'
+import { ISystemAssembler } from '../controllers/ISystemAssembler.js'
+import { RabbitMqBindingsFromApiAnalyzer } from '../../system-element-extractors/rabbitmq/RabbitMq.module.js'
+import { MicroservicesFromKubernetesCreator } from '../../system-element-extractors/kubernetes/Kubernetes.module.js'
 
 @Injectable()
 export class KubernetesRabbitMqAssembler implements ISystemAssembler {

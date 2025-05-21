@@ -1,9 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { has } = pkg;
 
-import { ConfigService } from '../../../config/Config.service'
-import { System, MicroService } from '../../../model/ms'
-import { KubernetesApiService } from '../api/api.service'
+import { ConfigService } from '../../../config/Config.service.js'
+import { System, MicroService } from '../../../model/ms.js'
+import { KubernetesApiService } from '../api/api.service.js'
 
 @Injectable()
 export class LabelsFromDeploymentDecorator {
@@ -24,7 +25,7 @@ export class LabelsFromDeploymentDecorator {
 
     const deployments = await this.apiService.getDeployments(namespace)
     for (const deployment of deployments.items) {
-      if (_.has(deployment, 'metadata.labels')) {
+      if (has(deployment, 'metadata.labels')) {
         const associatedMicroService = this.findAssociatedMicroService(system, deployment)
         if (associatedMicroService) {
           associatedMicroService.getPayload().labels = deployment.metadata.labels
@@ -39,7 +40,7 @@ export class LabelsFromDeploymentDecorator {
   private findAssociatedMicroService(system: System, deployment: any): MicroService | undefined {
     for (const service of system.getMicroServices()) {
       const serviceName = service.getPayload().name
-      if (_.has(deployment, 'metadata.name') && deployment.metadata.name === serviceName) {
+      if (has(deployment, 'metadata.name') && deployment.metadata.name === serviceName) {
         return service
       }
     }

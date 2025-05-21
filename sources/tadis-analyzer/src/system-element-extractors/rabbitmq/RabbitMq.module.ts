@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { HttpModule } from '@nestjs/axios'
 
-import { RabbitMqManagementApiService } from './api/api.service'
-import { ConfigModule } from '../../config/Config.module'
-import { RabbitMqBindingsFromApiAnalyzer } from './transformer/RabbitMqBindingsFromApiAnalyzer'
-import { OutgoingExchangesFromSourceCreator } from './transformer/OutgoingExchangesFromSourceCreator'
+import { RabbitMqManagementApiService } from './api/api.service.js'
+import { ConfigModule } from '../../config/Config.module.js'
+import { RabbitMqBindingsFromApiAnalyzer } from './transformer/RabbitMqBindingsFromApiAnalyzer.js'
+import { OutgoingExchangesFromSourceCreator } from './transformer/OutgoingExchangesFromSourceCreator.js'
 
 @Module({
   imports: [ConfigModule, HttpModule],

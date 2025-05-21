@@ -1,23 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common'
 
-import { ConfigService } from '../../../config/Config.service'
-import { System } from '../../../model/ms'
+import { ConfigService } from '../../../config/Config.service.js'
+import { System } from '../../../model/ms.js'
 import {
   SystemPattern,
   NodePattern,
   EdgePattern,
   NamePattern,
   SearchTextLocation
-} from './model'
+} from './model.js'
 export {
   SystemPattern,
   NodePattern,
   EdgePattern,
   NamePattern,
   SearchTextLocation
-} from './model'
+} from './model.js'
 
-import { PatternAnalyzer } from './PatternAnalyzer'
+import { PatternAnalyzer } from './PatternAnalyzer.js'
 
 /**
  * The PatternAnalyzer allows to derive a system from source code patterns defined by regular expressions.

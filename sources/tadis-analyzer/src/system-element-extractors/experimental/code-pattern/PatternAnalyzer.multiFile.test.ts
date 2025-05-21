@@ -1,9 +1,15 @@
-import { System, AsyncEventFlow } from '../../../model/ms'
+import { System } from '../../../model/ms.js'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import { describe, it, beforeEach, expect } from 'vitest'
 
-import { verifyEachContentHasTransformer } from '../../../test/verifiers'
+import { verifyEachContentHasTransformer } from '../../../test/verifiers.js'
 
-import { PatternAnalyzer } from './PatternAnalyzer'
-import { SystemPattern, NodePattern, SearchTextLocation } from './model'
+import { PatternAnalyzer } from './PatternAnalyzer.js'
+import { SystemPattern, NodePattern, SearchTextLocation } from './model.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 describe('PatternAnalyzer.multiFile', () => {
     const sourceFolder = __dirname + '/testdata/multi-file-analysis-project'
@@ -59,9 +65,9 @@ describe('PatternAnalyzer.multiFile', () => {
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
         expect(outputSystem.getAllEdges()).toHaveLength(2)
-        expect(outputSystem.findMicroService('service1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('actual_topic_1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('actual_topic_2')).toBeDefined()
+        expect(outputSystem.findMicroService('service1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('actual_topic_1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('actual_topic_2')).not.toBeUndefined()
 
         verifyEachContentHasTransformer(outputSystem, PatternAnalyzer.name)
     })
@@ -112,12 +118,10 @@ describe('PatternAnalyzer.multiFile', () => {
         const analyzer = new PatternAnalyzer(sourceFolder)
         const outputSystem = await analyzer.transform(inputSystem, systemPattern)
 
-        // console.log(JSON.stringify(outputSystem, null, 2))
-
         expect(outputSystem.getAllEdges()).toHaveLength(2)
-        expect(outputSystem.findMicroService('service1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('actual_topic_1')).toBeDefined()
-        expect(outputSystem.findMessageExchange('actual_topic_2')).toBeDefined()
+        expect(outputSystem.findMicroService('service1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('actual_topic_1')).not.toBeUndefined()
+        expect(outputSystem.findMessageExchange('actual_topic_2')).not.toBeUndefined()
 
         verifyEachContentHasTransformer(outputSystem, PatternAnalyzer.name)
     })

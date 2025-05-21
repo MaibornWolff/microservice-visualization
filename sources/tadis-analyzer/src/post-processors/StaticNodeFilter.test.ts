@@ -1,9 +1,9 @@
-import { ConfigService } from '../config/Config.service'
+import { ConfigService } from '../config/Config.service.js'
 
-import { StaticNodeFilter } from './StaticNodeFilter'
-import { System, AsyncEventFlow } from '../model/ms'
+import { StaticNodeFilter } from './StaticNodeFilter.js'
+import { System, AsyncEventFlow } from '../model/ms.js'
 
-jest.mock('../config/Config.service')
+import { describe, it, expect } from 'vitest'
 
 describe(StaticNodeFilter.name, () => {
 
@@ -21,9 +21,9 @@ describe(StaticNodeFilter.name, () => {
     const serviceE = inputSystem.addMicroService('E')
     inputSystem.edges.push(new AsyncEventFlow(serviceD, serviceE))
 
-    ConfigService.prototype.getExcludedNodeNames = jest.fn().mockImplementation(() => {
+    ConfigService.prototype.getExcludedNodeNames = () => {
       return ['A.*', 'C']
-    })
+    }
 
     const config = new ConfigService()
     const nodeRemover = new StaticNodeFilter(config)
@@ -31,15 +31,13 @@ describe(StaticNodeFilter.name, () => {
 
     expect(system.findMicroService('A')).toBeUndefined()
     expect(system.findMessageExchange('C')).toBeUndefined()
-    expect(system.findMicroService('D')).toBeDefined()
-    expect(system.findMicroService('E')).toBeDefined()
+    expect(system.findMicroService('D')).not.toBeUndefined()
+    expect(system.findMicroService('E')).not.toBeUndefined()
     expect(system.nodes).toHaveLength(2)
-
     expect(system.edges).toHaveLength(1)
-    expect(system.edges[0].source.id).toEqual(serviceD.id)
-    expect(system.edges[0].target.id).toEqual(serviceE.id)
-
-    expect(system.content.metadata.transformer).toEqual(StaticNodeFilter.name)
-    expect(system.content.metadata.info).toEqual('AAA, C')
+    expect(system.edges[0].source.id).toBe(serviceD.id)
+    expect(system.edges[0].target.id).toBe(serviceE.id)
+    expect(system.content.metadata.transformer).toBe(StaticNodeFilter.name)
+    expect(system.content.metadata.info).toBe('AAA, C')
   })
 })

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 
-import { ConfigModule } from '../config/Config.module'
-import { StaticNodeFilter } from '../post-processors/StaticNodeFilter'
-import { SubSystemFromPayloadTransformer } from '../post-processors/SubSystemFromPayloadTransformer'
+import { ConfigModule } from '../config/Config.module.js'
+import { StaticNodeFilter } from '../post-processors/StaticNodeFilter.js'
+import { SubSystemFromPayloadTransformer } from '../post-processors/SubSystemFromPayloadTransformer.js'
 
 @Module({
   imports: [ConfigModule],

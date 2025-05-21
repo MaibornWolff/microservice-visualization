@@ -1,6 +1,6 @@
 import { Get, Controller, Param, Query } from '@nestjs/common'
-import { GitStorageService } from './GitStorage.service'
-import { StorageStatus } from './GitStorage'
+import { GitStorageService } from './GitStorage.service.js'
+import { StorageStatus } from './GitStorage.js'
 
 @Controller()
 export class GitStorageController {
