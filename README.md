@@ -11,7 +11,7 @@ The main tool is the **Tool for Architecture Discovery (TADIS)**.
 TADIS consists of two microservices: an analyzer backend and a UI frontend (see the architecture picture below).
 
 * [tadis-analyzer](sources/tadis-analyzer) collects information about a system from different sources by executing a number of transformers. The result is provided as a system model in JSON. The analyzer is a microservice and also a NPM package. The microservice can be started directly, while the NPM package can be used in custom analyzers.
-* [tadis-ui](sources/tadis-ui) is based on webpack, D3, and graphviz. It visualizes systems provided by the tadis-analyzer endpoint `/collect/system`. The UI is specific to certain visualizations in microservice systems.
+* [tadis-ui](sources/tadis-ui) is based on vite, D3, and graphviz. It visualizes systems provided by the tadis-analyzer endpoint `/collect/system`. The UI is specific to certain visualizations in microservice systems.
 
 ![target architecture](docs/target-architecture.png "target architecture")
 
