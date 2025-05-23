@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import { default as queryString } from 'query-string'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { isString } = pkg;
 
 import { system as rawSystem } from '../exampleSystems/simpleSystem.js'
 import { Node } from '../domain/model.js'
@@ -17,7 +18,7 @@ export class LoadExampleAction {
 
       const parsedUrl = queryString.parseUrl(window.location.href)
       const parsedQuery = parsedUrl.query
-      const rankDir: string = parsedQuery.rankdir && _.isString(parsedQuery.rankdir) ? parsedQuery.rankdir : undefined
+      const rankDir: string = parsedQuery.rankdir && isString(parsedQuery.rankdir) ? parsedQuery.rankdir : undefined
       const showDebug: boolean = parsedQuery.debug !== undefined
 
       const options: SystemToDotOptions = {

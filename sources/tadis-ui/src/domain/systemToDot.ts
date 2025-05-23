@@ -1,5 +1,6 @@
 import { Node, Edge } from './model.js'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { fill } = pkg;
 
 export interface Options {
   urlExtractor: (node: Node) => string
@@ -258,7 +259,7 @@ ${dotSubGraphs}
 }
 
 function addSpaces(n: number): string {
-  return _.fill(Array(n), '  ')
+  return fill(Array(n), '  ')
     .join('')
 }
 

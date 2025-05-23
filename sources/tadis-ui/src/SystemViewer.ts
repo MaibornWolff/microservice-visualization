@@ -1,7 +1,8 @@
 import * as axios from 'axios'
 import { select } from 'd3'
 import { default as queryString } from 'query-string'
-import * as _ from 'lodash'
+import pkg from 'lodash';
+const { isString } = pkg;
 
 import { getBaseUrlInCurrentEnvironment } from './appBaseUrl.js'
 
@@ -54,7 +55,7 @@ export function load() {
 function getSystemToDotOptions(): SystemToDotOptions {
   const parsedUrl = queryString.parseUrl(window.location.href)
   const parsedQuery = parsedUrl.query
-  const rankDir: string = parsedQuery.rankdir && _.isString(parsedQuery.rankdir) ? parsedQuery.rankdir : undefined
+  const rankDir: string = parsedQuery.rankdir && isString(parsedQuery.rankdir) ? parsedQuery.rankdir : undefined
   const showDebug: boolean = parsedQuery.debug !== undefined
 
   return {
