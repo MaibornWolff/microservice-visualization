@@ -1,4 +1,3 @@
-import * as _ from 'lodash'
 import { Node } from './model.js'
 import { GraphService } from './service.js'
 import pkg from 'lodash';
