@@ -37,7 +37,7 @@
     "@types/node": "^22.15.29",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.32.1",
-    "@vitest/coverage-v8": "^3.1.4",
+    "@vitest/coverage-v8": "^3.2.0",
     "d3": "^7.9.0",
     "d3-graphviz": "^5.6.0",
     "eslint": "^9.28.0",
