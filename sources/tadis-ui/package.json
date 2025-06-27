@@ -40,7 +40,7 @@
     "@vitest/coverage-v8": "^3.2.4",
     "d3": "^7.9.0",
     "d3-graphviz": "^5.6.0",
-    "eslint": "^9.29.0",
+    "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "prettier": "^3.6.2",
     "query-string": "^9.2.1",
