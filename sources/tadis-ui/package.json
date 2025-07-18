@@ -41,7 +41,7 @@
     "d3": "^7.9.0",
     "d3-graphviz": "^5.6.0",
     "eslint": "^9.31.0",
-    "eslint-config-prettier": "^10.1.5",
+    "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2",
     "query-string": "^9.2.2",
     "source-map-loader": "^5.0.0",
