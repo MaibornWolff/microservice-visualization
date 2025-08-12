@@ -64,11 +64,11 @@ export class GitStorage {
   private async storeRepositoryFromUrl(repositoryName: string, repositoryUrl: string): Promise<string | undefined> {
     const valid = await this.isRepositoryValid(repositoryUrl)
     if (!valid) {
-      this.logger.log('could not read repository ' + repositoryUrl)
+      this.logger.log('could not read repository ' + this.sanitizeUrlForLogging(repositoryUrl))
       return undefined
     }
 
-    this.logger.log('storing repository ' + repositoryUrl)
+    this.logger.log('storing repository ' + this.sanitizeUrlForLogging(repositoryUrl))
     if (this.isCloned(repositoryName)) {
       return this.updateRepository(repositoryName)
     } else {
@@ -127,7 +127,7 @@ export class GitStorage {
       fs.mkdirSync(localPath)
     }
 
-    this.logger.log('cloning repository ' + repositoryUrl)
+    this.logger.log('cloning repository ' + this.sanitizeUrlForLogging(repositoryUrl))
 
     const child = cp.spawn('git', [
       'clone',
@@ -138,7 +138,7 @@ export class GitStorage {
     if (exitCode === 0) {
       return localPath
     } else {
-      this.logger.error('failed to clone repository from url ' + repositoryUrl)
+      this.logger.error('failed to clone repository from url ' + this.sanitizeUrlForLogging(repositoryUrl))
       return undefined
     }
   }
@@ -150,4 +150,17 @@ export class GitStorage {
       })
   }
 
+  private sanitizeUrlForLogging(url: string): string {
+    try {
+      const urlObj = new URL(url)
+      if (urlObj.username || urlObj.password) {
+        urlObj.username = '***'
+        urlObj.password = '***'
+      }
+      return urlObj.toString()
+    } catch {
+      // If URL parsing fails, return as-is (likely SSH format)
+      return url
+    }
+  }
 }
