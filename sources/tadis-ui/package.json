@@ -32,7 +32,7 @@
     "random-word": "^3.0.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.4",
+    "@types/express": "^5.0.5",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.9.1",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
