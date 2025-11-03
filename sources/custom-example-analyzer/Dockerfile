@@ -1,4 +1,4 @@
-FROM node:24.10.0-alpine
+FROM node:25.1.0-alpine
 
 RUN mkdir -p /tadis-analyzer/src
 COPY tadis-analyzer/src /tadis-analyzer/src/
