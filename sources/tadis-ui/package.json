@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "private": true,
   "dependencies": {
-    "@viz-js/viz": "^3.23.0",
+    "@viz-js/viz": "^3.24.0",
     "axios": "^1.13.2",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
