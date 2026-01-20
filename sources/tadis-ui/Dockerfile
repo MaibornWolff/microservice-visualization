@@ -1,5 +1,5 @@
 # stage: build
-FROM node:25.3.0-alpine AS build
+FROM node:25.4.0-alpine AS build
 WORKDIR /viewer
 
 COPY *.json ./
@@ -12,7 +12,7 @@ COPY src ./src/
 RUN npm run test && npm run build
 
 # stage: install prod packages & run
-FROM node:25.3.0-alpine
+FROM node:25.4.0-alpine
 
 RUN mkdir -p /viewer/build
 COPY --from=build /viewer/build /viewer/build/
