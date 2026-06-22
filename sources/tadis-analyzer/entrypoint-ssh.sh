@@ -1,5 +1,5 @@
 #!/bin/bash
-SSH_DIR=/root/.ssh
+SSH_DIR="${HOME}/.ssh"
 if [ ! -d $SSH_DIR ]
   then
     mkdir -p ${SSH_DIR}

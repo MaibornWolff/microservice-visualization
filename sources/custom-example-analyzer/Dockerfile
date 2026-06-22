@@ -17,10 +17,11 @@ RUN npm install && \
     npm run build && \
     apk update && apk add --no-cache openssh-client git bash
 
-RUN mkdir -p /app/temp
+RUN mkdir -p /app/temp && chown -R node:node /app /tadis-analyzer
 
 ARG VERSION
 ENV VERSION=$VERSION
 EXPOSE 8080
 
+USER node
 CMD [ "npm", "run", "server" ]
