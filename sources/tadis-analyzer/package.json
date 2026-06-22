@@ -21,7 +21,7 @@
     "start": "ts-node -r tsconfig-paths/register src/app/default/main.ts",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "start:prod": "node build/src/app/default/main.js",
+    "start:prod": "node build/app/default/main.js",
     "code-pattern": "ts-node -r tsconfig-paths/register src/app/code-pattern/main.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint-fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

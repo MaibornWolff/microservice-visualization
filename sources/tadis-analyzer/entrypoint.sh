@@ -1,3 +1,3 @@
 #!/bin/bash
 cd app
-yarn start:prod
+npm run start:prod
