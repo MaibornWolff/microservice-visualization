@@ -4,6 +4,8 @@ updates:
     directory: "/sources/tadis-analyzer"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "fix(tadis-analyzer)"
       prefix-development: "chore(tadis-analyzer)"
@@ -12,6 +14,8 @@ updates:
     directory: "/sources/tadis-ui"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "fix(tadis-ui)"
       prefix-development: "chore(tadis-ui)"
@@ -20,6 +24,8 @@ updates:
     directory: "/sources/custom-example-analyzer"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(example-analyzer)"
 
@@ -27,6 +33,8 @@ updates:
     directory: "/sources/tadis-analyzer"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(tadis-analyzer)"
 
@@ -34,6 +42,8 @@ updates:
     directory: "/sources/tadis-ui"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "fix(tadis-ui)"
 
@@ -41,6 +51,8 @@ updates:
     directory: "/sources/custom-example-analyzer"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore(example-analyzer)"
 
@@ -48,3 +60,5 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
