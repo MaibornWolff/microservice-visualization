@@ -28,7 +28,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
 
     - name: Update version
       working-directory: ./sources/tadis-ui
@@ -42,7 +44,7 @@ jobs:
         npm version "$VERSION"
 
     - name: Log in to GitHub Container Registry
-      uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+      uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
@@ -50,14 +52,14 @@ jobs:
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
-      uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051
+      uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         flavor: latest=${{ startsWith(github.ref, 'refs/tags/v') }}
 
     - name: Build and Push Docker image
       id: push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
       with:
         context: ./sources/tadis-ui
         file: ./sources/tadis-ui/Dockerfile
@@ -67,7 +69,7 @@ jobs:
 
     - name: Generate artifact attestation
       if: ${{ github.event_name != 'pull_request' }}
-      uses: actions/attest-build-provenance@v3
+      uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
       with:
         subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
         subject-digest: ${{ steps.push.outputs.digest }}
