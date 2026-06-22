@@ -28,11 +28,12 @@ RUN yarn install --production
 COPY entrypoint.sh /
 COPY entrypoint-ssh.sh /
 
-RUN mkdir -p /app/temp
+RUN mkdir -p /app/temp && chown -R node:node /app
 
 ARG VERSION
 ENV VERSION=$VERSION
 EXPOSE 8080
 
 WORKDIR /
+USER node
 CMD [ "./entrypoint.sh" ]
