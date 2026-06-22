@@ -1,0 +1,17 @@
+# Configuration for zizmor (https://docs.zizmor.sh/configuration/)
+rules:
+  # The publish/release workflow legitimately builds and publishes runtime
+  # artifacts; setup-node's default caching is acceptable here and there is no
+  # untrusted input feeding the cache, so the cache-poisoning audit is a
+  # false positive in this context.
+  cache-poisoning:
+    ignore:
+      - publish-npm.yml
+
+  # Intentional ad-hoc installs: cdxgen is installed pinned for SBOM
+  # generation, and custom-example-analyzer installs the local monorepo
+  # package ../tadis-analyzer which has no standalone lockfile entry.
+  adhoc-packages:
+    ignore:
+      - create_sbom.yml
+      - publish-npm.yml
