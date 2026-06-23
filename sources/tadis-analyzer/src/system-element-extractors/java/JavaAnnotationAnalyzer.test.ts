@@ -58,9 +58,9 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
-    expect(outputSystem.findMessageExchange('target-exchange-X')).to.not.be.undefined
-    expect(outputSystem.findMessageExchange('target-exchange-Y')).to.not.be.undefined
+    expect(outputSystem.findMicroService('service1')).toBeDefined()
+    expect(outputSystem.findMessageExchange('target-exchange-X')).toBeDefined()
+    expect(outputSystem.findMessageExchange('target-exchange-Y')).toBeDefined()
 
     expect(
       outputSystem.edges.find(
@@ -69,7 +69,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.target.getName() === 'target-exchange-X' &&
           edge.content.type === AsyncEventFlow.name
       )
-    ).to.not.be.undefined
+    ).toBeDefined()
 
     expect(
       outputSystem.edges.find(
@@ -77,7 +77,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'service1' &&
           edge.target.getName() === 'target-exchange-Y'
       )
-    ).to.not.be.undefined
+    ).toBeDefined()
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })
@@ -94,12 +94,12 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
+    expect(outputSystem.findMicroService('service1')).toBeDefined()
     expect(
       outputSystem.nodes.filter(
         (node) => node.getName() === 'source-exchange-X'
       )
-    ).to.have.lengthOf(1)
+    ).toHaveLength(1)
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })
@@ -114,8 +114,8 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).to.be.undefined
-    expect(outputSystem.findMessageExchange('target-exchange')).to.be.undefined
+    expect(outputSystem.findMicroService('service1')).toBeUndefined()
+    expect(outputSystem.findMessageExchange('target-exchange')).toBeUndefined()
   })
 
   it('can create nodes from multiple elements in the same annotation', async () => {
@@ -129,9 +129,9 @@ describe(JavaAnnotationAnalyzer.name, () => {
       elementMappings
     )
 
-    expect(outputSystem.findMicroService('service1')).to.not.be.undefined
-    expect(outputSystem.findMessageExchange('source-exchange-X')).to.not.be.undefined
-    expect(outputSystem.findMessageExchange('target-exchange-X')).to.not.be.undefined
+    expect(outputSystem.findMicroService('service1')).toBeDefined()
+    expect(outputSystem.findMessageExchange('source-exchange-X')).toBeDefined()
+    expect(outputSystem.findMessageExchange('target-exchange-X')).toBeDefined()
 
     expect(
       outputSystem.edges.find(
@@ -139,7 +139,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'service1' &&
           edge.target.getName() === 'target-exchange-X'
       )
-    ).to.not.be.undefined
+    ).toBeDefined()
 
     expect(
       outputSystem.edges.find(
@@ -147,7 +147,7 @@ describe(JavaAnnotationAnalyzer.name, () => {
           edge.source.getName() === 'source-exchange-X' &&
           edge.target.getName() === 'service1'
       )
-    ).to.not.be.undefined
+    ).toBeDefined()
 
     verifyEachContentHasTransformer(outputSystem, JavaAnnotationAnalyzer.name)
   })

@@ -8,7 +8,7 @@ describe(SubSystemFromPayloadTransformer.name, () => {
     const inputSystem = new System('system')
     const serviceA = inputSystem.addMicroService('A')
     serviceA.getPayload().labels = { cabinet: 'X' }
-    const serviceB = inputSystem.addMicroService('B')
+    inputSystem.addMicroService('B')
 
     const transformer = new SubSystemFromPayloadTransformer()
     const system = await transformer.transform(

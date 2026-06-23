@@ -2,13 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 
 import { ConfigService } from '../../../config/Config.service.js'
 import { System } from '../../../model/ms.js'
-import {
-  SystemPattern,
-  NodePattern,
-  EdgePattern,
-  NamePattern,
-  SearchTextLocation
-} from './model.js'
+import { SystemPattern } from './model.js'
 export {
   SystemPattern,
   NodePattern,
