@@ -11,7 +11,7 @@ import { System, MicroService } from '../../model/ms.js'
 
 // tslint:disable-next-line
 import * as ms from '../../model/ms.js'
-import { Metadata } from 'src/model/core.js'
+import { Metadata } from '../../model/core.js'
 
 const logger = new Logger('AnnotationAnalyzer')
 

@@ -43,34 +43,34 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
 
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem).to.not.be.null
+    expect(outputSystem).not.toBeNull()
 
-    expect(outputSystem.getMicroServices()).to.have.lengthOf(1)
-    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
+    expect(outputSystem.getMicroServices()).toHaveLength(1)
+    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
 
-    expect(outputSystem.getMicroServices()[0].getName()).to.deep.equal(
+    expect(outputSystem.getMicroServices()[0].getName()).toEqual(
       'receiver-service'
     )
-    expect(outputSystem.getMessageExchanges()[0].getName()).to.deep.equal(
+    expect(outputSystem.getMessageExchanges()[0].getName()).toEqual(
       'source-exchange-1'
     )
-    expect(outputSystem.getMessageExchanges()[1].getName()).to.deep.equal(
+    expect(outputSystem.getMessageExchanges()[1].getName()).toEqual(
       'source-exchange-2'
     )
 
-    expect(outputSystem.getAsyncEventFlows()).to.have.lengthOf(2)
+    expect(outputSystem.getAsyncEventFlows()).toHaveLength(2)
 
-    expect(outputSystem.getAsyncEventFlows()[0].source.id).to.deep.equal(
+    expect(outputSystem.getAsyncEventFlows()[0].source.id).toEqual(
       outputSystem.getMessageExchanges()[0].id
     )
-    expect(outputSystem.getAsyncEventFlows()[0].target.id).to.deep.equal(
+    expect(outputSystem.getAsyncEventFlows()[0].target.id).toEqual(
       outputSystem.getMicroServices()[0].id
     )
 
-    expect(outputSystem.getAsyncEventFlows()[1].source.id).to.deep.equal(
+    expect(outputSystem.getAsyncEventFlows()[1].source.id).toEqual(
       outputSystem.getMessageExchanges()[1].id
     )
-    expect(outputSystem.getAsyncEventFlows()[1].target.id).to.deep.equal(
+    expect(outputSystem.getAsyncEventFlows()[1].target.id).toEqual(
       outputSystem.getMicroServices()[0].id
     )
 
@@ -94,21 +94,21 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const inputSystem = new System('test')
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem.getMicroServices()).to.have.lengthOf(0)
-    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
+    expect(outputSystem.getMicroServices()).toHaveLength(0)
+    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
 
     const queueNode = outputSystem.nodes.find(
       (node) => node.content.type === MessageQueue.name
     )
-    expect(queueNode).to.not.be.undefined
-    expect(queueNode.getName()).to.deep.equal(
+    expect(queueNode).toBeDefined()
+    expect(queueNode.getName()).toEqual(
       'receiver-service.routingKey.publish.update'
     )
 
-    expect(outputSystem.getAsyncEventFlows()[0].source.id).to.deep.equal(
+    expect(outputSystem.getAsyncEventFlows()[0].source.id).toEqual(
       outputSystem.getMessageExchanges()[0].id
     )
-    expect(outputSystem.getAsyncEventFlows()[0].target.id).to.deep.equal(queueNode.id)
+    expect(outputSystem.getAsyncEventFlows()[0].target.id).toEqual(queueNode.id)
 
     verifyEachContentHasTransformer(
       outputSystem,
@@ -141,14 +141,14 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
     const inputSystem = new System('test')
     const outputSystem = await addExchangesFormSourceStep.transform(inputSystem)
 
-    expect(outputSystem.getMicroServices()).to.have.lengthOf(0)
-    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(1)
+    expect(outputSystem.getMicroServices()).toHaveLength(0)
+    expect(outputSystem.getMessageExchanges()).toHaveLength(1)
 
     const queueNode = outputSystem.nodes.find(
       (node) => node.content.type === MessageQueue.name
     )
-    expect(queueNode).to.not.be.undefined
-    expect(queueNode.getName()).to.deep.equal('no-service-prefix')
+    expect(queueNode).toBeDefined()
+    expect(queueNode.getName()).toEqual('no-service-prefix')
 
     verifyEachContentHasTransformer(
       outputSystem,
@@ -181,9 +181,9 @@ describe(RabbitMqBindingsFromApiAnalyzer.name, () => {
       new System('test')
     )
 
-    expect(outputSystem).to.not.be.null
+    expect(outputSystem).not.toBeNull()
 
-    expect(outputSystem.nodes).to.have.lengthOf(0)
-    expect(outputSystem.edges).to.have.lengthOf(0)
+    expect(outputSystem.nodes).toHaveLength(0)
+    expect(outputSystem.edges).toHaveLength(0)
   })
 })

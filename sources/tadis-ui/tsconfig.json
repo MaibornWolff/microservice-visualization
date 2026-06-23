@@ -3,8 +3,10 @@
     "module": "ESNext",
     "target": "ES2024",
     "moduleResolution": "bundler",
-    "downlevelIteration": true,
     "allowJs": true,
+    // TypeScript 6 turns the strict family on by default; keep it off to
+    // preserve this project's previously lenient (non-strict) typing.
+    "strict": false,
     "sourceMap": true,
     "outDir": "build",
     "esModuleInterop": true,
@@ -12,7 +14,6 @@
     "rootDirs": [
       "src"
     ],
-    "baseUrl": ".",
     "lib": [
       "es2024",
       "dom",
