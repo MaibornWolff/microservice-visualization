@@ -7,9 +7,6 @@
   - name: XX
     value: 1
 `
-  const ws = '\\s*'
-  const id = '\\w'
-  const anything = '[^]*'
 
   const r = new RegExp(`name:\\s*SOME_KAFKA_TOPIC\\s*value:\\s*(\\w+)`)
   const result = content.match(r)

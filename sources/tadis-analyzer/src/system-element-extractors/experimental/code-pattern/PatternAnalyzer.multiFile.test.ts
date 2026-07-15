@@ -18,8 +18,6 @@ describe('PatternAnalyzer.multiFile', () => {
         process.env.NODE_ENV = 'test'
     })
 
-    const ws = '\\s*'
-    const id = '\\w+'
 
     function javaSourceFilePattern(): NodePattern {
         return {

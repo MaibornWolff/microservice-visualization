@@ -22,35 +22,35 @@ describe('adaptToV1', () => {
 
     const adaptedSystem = adaptToV1(system)
 
-    expect(adaptedSystem.getName()).to.deep.equal(system.getPayload().name)
+    expect(adaptedSystem.getName()).toEqual(system.getPayload().name)
 
-    expect(adaptedSystem.getNodes()).to.have.lengthOf(3)
+    expect(adaptedSystem.getNodes()).toHaveLength(3)
 
     const adaptedServiceA = adaptedSystem.getNodes().find(node => node.getName() === 'A')
-    expect(adaptedServiceA).to.not.be.undefined
-    expect(adaptedServiceA.type).to.deep.equal('MicroService')
+    expect(adaptedServiceA).toBeDefined()
+    expect(adaptedServiceA.type).toEqual('MicroService')
 
     const adaptedExchangeB = adaptedSystem.getNodes().find(node => node.getName() === 'B')
-    expect(adaptedExchangeB).to.not.be.undefined
-    expect(adaptedExchangeB.type).to.deep.equal('MessageExchange')
+    expect(adaptedExchangeB).toBeDefined()
+    expect(adaptedExchangeB.type).toEqual('MessageExchange')
 
-    expect(adaptedSystem.getEdges()).to.have.lengthOf(2)
+    expect(adaptedSystem.getEdges()).toHaveLength(2)
     const abEdge = adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === exchangeB.id)
-    expect(abEdge).to.not.be.undefined
-    expect(abEdge.type).to.deep.equal('AsyncInfoFlow')
+    expect(abEdge).toBeDefined()
+    expect(abEdge.type).toEqual('AsyncInfoFlow')
 
-    expect(adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === serviceC.id)).to.not.be.undefined
+    expect(adaptedSystem.getEdges().find(edge => edge.sourceId === serviceA.id && edge.targetId === serviceC.id)).toBeDefined()
 
     const adaptedSubSystem = adaptedSystem.getNodes().find(node => node.getName() === 'sub-system')
-    expect(adaptedSubSystem).to.not.be.undefined
-    expect(adaptedSubSystem.getNodes()).to.have.lengthOf(2)
-    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'C')).to.not.be.undefined
-    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'D')).to.not.be.undefined
+    expect(adaptedSubSystem).toBeDefined()
+    expect(adaptedSubSystem.getNodes()).toHaveLength(2)
+    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'C')).toBeDefined()
+    expect(adaptedSubSystem.getNodes().find(node => node.getName() === 'D')).toBeDefined()
 
-    expect(adaptedSubSystem.getEdges()).to.have.lengthOf(1)
+    expect(adaptedSubSystem.getEdges()).toHaveLength(1)
     const cdEdge = adaptedSubSystem.getEdges().find(edge => edge.sourceId === serviceC.id && edge.targetId === serviceD.id)
-    expect(cdEdge).to.not.be.undefined
-    expect(cdEdge.type).to.deep.equal('SyncInfoFlow')
+    expect(cdEdge).toBeDefined()
+    expect(cdEdge.type).toEqual('SyncInfoFlow')
   })
 
   it('puts payload fields and metadata into v1-properties', async() => {
@@ -70,16 +70,16 @@ describe('adaptToV1', () => {
 
     const adaptedSystem = adaptToV1(system)
 
-    expect(adaptedSystem.getNodes()).to.have.lengthOf(2)
-    expect(adaptedSystem.getNodes().find(node => node.getName() === 'A').getProp('x', null)).to.equal('1')
-    expect(adaptedSystem.getNodes().find(node => node.getName() === 'B').getProp('y', null)).to.equal('2')
+    expect(adaptedSystem.getNodes()).toHaveLength(2)
+    expect(adaptedSystem.getNodes().find(node => node.getName() === 'A').getProp('x', null)).toBe('1')
+    expect(adaptedSystem.getNodes().find(node => node.getName() === 'B').getProp('y', null)).toBe('2')
 
     expect(adaptedSystem.getNodes()
       .find(node => node.getName() === 'A')
       .getProp('metadata', null)
-    ).to.equal(metadata)
+    ).toBe(metadata)
 
-    expect(adaptedSystem.getEdges()[0].getProperties().x).to.equal('1')
-    expect(adaptedSystem.getEdges()[0].getProperties().metadata).to.equal(metadata)
+    expect(adaptedSystem.getEdges()[0].getProperties().x).toBe('1')
+    expect(adaptedSystem.getEdges()[0].getProperties().metadata).toBe(metadata)
   })
 })
