@@ -1,5 +1,5 @@
 # stage: build
-FROM node:26.3.1-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606 as build
+FROM node:26.5.0-alpine@sha256:e88a35be04478413b7c71c455cd9865de9b9360e1f43456be5951032d7ac1a66 as build
 
 RUN mkdir -p /app/src
 COPY src /app/src/
@@ -12,7 +12,7 @@ RUN npm run test
 RUN npm run build
 
 # stage: install prod packages & run
-FROM node:26.3.1-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606
+FROM node:26.5.0-alpine@sha256:e88a35be04478413b7c71c455cd9865de9b9360e1f43456be5951032d7ac1a66
 
 RUN apk update && apk add --no-cache openssh-client git bash
 
