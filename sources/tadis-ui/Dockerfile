@@ -1,5 +1,5 @@
 # stage: build
-FROM node:26.3.1-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606 AS build
+FROM node:26.8.2-alpine@sha256:ef24c5053d50fdc3e4e56eb4e7ddb7861874ab0fdc797046ba897581deb8e868 AS build
 WORKDIR /viewer
 
 COPY *.json ./
@@ -12,7 +12,7 @@ COPY src ./src/
 RUN npm run test && npm run build
 
 # stage: install prod packages & run
-FROM node:26.3.1-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606
+FROM node:26.8.2-alpine@sha256:ef24c5053d50fdc3e4e56eb4e7ddb7861874ab0fdc797046ba897581deb8e868
 
 RUN mkdir -p /viewer/build
 COPY --from=build /viewer/build /viewer/build/
