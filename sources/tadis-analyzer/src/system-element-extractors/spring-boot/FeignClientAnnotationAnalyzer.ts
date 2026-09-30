@@ -8,7 +8,7 @@ import {
 
 import { ConfigService } from '../../config/Config.service.js'
 import { System, SyncDataFlow } from '../../model/ms.js'
-import { Metadata } from 'src/model/core.js'
+import { Metadata } from '../../model/core.js'
 
 /**
  * Searches for @FeignClient annotations in the source code of a microservice

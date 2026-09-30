@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { MicroserviceWithOutgoingExchangeMerger } from './MicroserviceWithOutgoingExchangeMerger.js'
 import { System, AsyncEventFlow, MicroService } from '../model/ms.js'
-import { Metadata } from 'src/model/core.js'
+import { Metadata } from '../model/core.js'
 
 describe(MicroserviceWithOutgoingExchangeMerger.name, () => {
   it('can merge in standard case', async () => {

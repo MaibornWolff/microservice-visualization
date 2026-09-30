@@ -10,7 +10,6 @@ public Container receiveX(X x) {
 }
 `
 const ws = '\\s*'
-const id = '\\w'
 const anything = '[^]*'
 
 const dslExpr = `@EventProcessor  (  [^)]*sendToExchange  =  (id)`

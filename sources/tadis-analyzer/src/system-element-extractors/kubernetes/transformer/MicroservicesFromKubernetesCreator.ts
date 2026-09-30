@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '../../../config/Config.service.js'
 import { System } from '../../../model/ms.js'
 import { KubernetesApiService } from '../api/api.service.js'
-import { Metadata } from 'src/model/core.js'
+import { Metadata } from '../../../model/core.js'
 
 @Injectable()
 export class MicroservicesFromKubernetesCreator {
@@ -14,7 +14,7 @@ export class MicroservicesFromKubernetesCreator {
     private readonly apiService: KubernetesApiService
   ) {}
 
-  public async transform(system: System): Promise<System> {
+  public async transform(_system: System): Promise<System> {
     return this.getSystem()
   }
 

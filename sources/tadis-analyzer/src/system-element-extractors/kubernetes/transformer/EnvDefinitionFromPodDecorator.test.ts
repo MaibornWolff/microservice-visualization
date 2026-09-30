@@ -29,9 +29,9 @@ describe(EnvDefinitionFromPodDecorator.name, () => {
     const envService = app.get<EnvDefinitionFromPodDecorator>(EnvDefinitionFromPodDecorator)
     const outputSystem = await envService.transform(inputSystem)
 
-    expect(outputSystem).to.not.be.null
-    expect(outputSystem.nodes).to.have.lengthOf(1)
-    expect(outputSystem.nodes[0].content.payload.env).to.deep.include({
+    expect(outputSystem).not.toBeNull()
+    expect(outputSystem.nodes).toHaveLength(1)
+    expect(outputSystem.nodes[0].content.payload.env).toContainEqual({
       name: 'CACHE_SIZE',
       value: '10000'
     })
