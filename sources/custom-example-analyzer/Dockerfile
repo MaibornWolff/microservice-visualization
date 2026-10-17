@@ -1,4 +1,4 @@
-FROM node:26.3.1-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606
+FROM node:26.11.1-alpine@sha256:143494b1da2945f061539253adc65e4f1569ddf07da2d384c022c791a9d90a4a
 
 RUN mkdir -p /tadis-analyzer/src
 COPY tadis-analyzer/src /tadis-analyzer/src/
