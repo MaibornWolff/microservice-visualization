@@ -46,39 +46,39 @@ describe(ExchangesFromEnvPayloadCreator.name, () => {
     )
     const outputSystem = await envExchangesService.transform(inputSystem)
 
-    expect(outputSystem).to.not.be.null
-    expect(outputSystem.nodes).to.have.lengthOf(3)
-    expect(outputSystem.getMicroServices()).to.have.lengthOf(1)
-    expect(outputSystem.getMessageExchanges()).to.have.lengthOf(2)
+    expect(outputSystem).not.toBeNull()
+    expect(outputSystem.nodes).toHaveLength(3)
+    expect(outputSystem.getMicroServices()).toHaveLength(1)
+    expect(outputSystem.getMessageExchanges()).toHaveLength(2)
     expect(
       outputSystem.findMessageExchange('test-outgoing-exchange')
-    ).to.not.be.undefined
+    ).toBeDefined()
     expect(
       outputSystem.findMessageExchange('test-incoming-exchange').content
         ?.metadata?.transformer
-    ).to.equal(ExchangesFromEnvPayloadCreator.name)
+    ).toBe(ExchangesFromEnvPayloadCreator.name)
 
     verifyEachContentHasTransformer(
       outputSystem,
       ExchangesFromEnvPayloadCreator.name
     )
 
-    expect(outputSystem.edges).to.have.lengthOf(2)
+    expect(outputSystem.edges).toHaveLength(2)
     expect(
       outputSystem.edges.filter((edge) => edge.content?.type !== undefined)
-    ).to.have.lengthOf(2)
+    ).toHaveLength(2)
 
-    expect(outputSystem.edges[0].source.id).to.equal(
+    expect(outputSystem.edges[0].source.id).toBe(
       outputSystem.findMicroService('test-microservice').id
     )
-    expect(outputSystem.edges[0].target.id).to.equal(
+    expect(outputSystem.edges[0].target.id).toBe(
       outputSystem.findMessageExchange('test-outgoing-exchange').id
     )
 
-    expect(outputSystem.edges[1].source.id).to.equal(
+    expect(outputSystem.edges[1].source.id).toBe(
       outputSystem.findMessageExchange('test-incoming-exchange').id
     )
-    expect(outputSystem.edges[1].target.id).to.equal(
+    expect(outputSystem.edges[1].target.id).toBe(
       outputSystem.findMicroService('test-microservice').id
     )
   })

@@ -80,10 +80,12 @@ export class TypedEdge<Payload> extends Edge {
   }
 }
 
-interface Type<T> extends Function {
+interface Type<T> {
   new(...args: any[]): T
+  name: string
 }
 
-interface TypeExtendsTypedNode<Type, Payload> extends Function {
+interface TypeExtendsTypedNode<Type, Payload> {
   new(id: string, payload: Payload, metadata: Metadata | undefined, typeName: string): Type
+  name: string
 }

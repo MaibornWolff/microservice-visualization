@@ -29,9 +29,9 @@ describe(LabelsFromDeploymentDecorator.name, () => {
     const addLabels = app.get<LabelsFromDeploymentDecorator>(LabelsFromDeploymentDecorator)
     const outputSystem = await addLabels.transform(inputSystem)
 
-    expect(outputSystem).to.not.be.null
-    expect(outputSystem.nodes).to.have.lengthOf(1)
-    expect(outputSystem.nodes[0].content.payload.labels).to.not.be.undefined
-    expect(outputSystem.nodes[0].content.payload.labels.cabinet).to.equal('test-cabinet')
+    expect(outputSystem).not.toBeNull()
+    expect(outputSystem.nodes).toHaveLength(1)
+    expect(outputSystem.nodes[0].content.payload.labels).toBeDefined()
+    expect(outputSystem.nodes[0].content.payload.labels.cabinet).toBe('test-cabinet')
   })
 })

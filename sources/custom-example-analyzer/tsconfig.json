@@ -7,13 +7,16 @@
     "allowJs": true,
     "noImplicitAny": false,
     // "strict": true,
+    // TypeScript 6 enables strictNullChecks by default; keep it off to match
+    // this project's lenient typing.
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "outDir": "./build",
-    "baseUrl": "./",
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "types": [
       "node"
