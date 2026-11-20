@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.1.1",
-    "@nestjs/core": "^11.1.1",
+    "@nestjs/core": "^12.5.0",
     "@nestjs/platform-express": "^11.1.1",
     "dotenv": "^16.5.0",
     "reflect-metadata": "^0.2.2",
