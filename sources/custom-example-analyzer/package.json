@@ -23,7 +23,7 @@
     "tadis-analyzer": "file:../tadis-analyzer"
   },
   "devDependencies": {
-    "@types/node": "^22.15.18",
+    "@types/node": "^26.6.6",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
